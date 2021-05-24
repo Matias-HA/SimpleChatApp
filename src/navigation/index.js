@@ -2,6 +2,7 @@
 import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {useSelector} from 'react-redux';
 
 // Includes
 import Login from '../screens/Login';
@@ -39,6 +40,8 @@ const MainStack = () => {
 };
 
 const Navigation = () => {
+  const {user} = useSelector(state => state.auth);
+
   useEffect(() => {
     // Anything that needs to be loaded on app startup should be added here.
   }, []);
@@ -48,7 +51,7 @@ const Navigation = () => {
       {/*
        * If User has not yet signed in, show the login screen
        */}
-      {true ? LoginStack() : MainStack()}
+      {user ? MainStack() : LoginStack()}
     </NavigationContainer>
   );
 };

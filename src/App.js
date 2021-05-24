@@ -1,15 +1,19 @@
 // Libraries
 import React from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import {SafeAreaView} from 'react-native';
+import {Provider} from 'react-redux';
 
 // Includes
 import Navigation from './navigation';
+import {store} from './shared/context/store';
 
 const App = () => {
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <Navigation />
-    </SafeAreaView>
+    <Provider store={store}>
+      <SafeAreaView style={{flex: 1}}>
+        <Navigation />
+      </SafeAreaView>
+    </Provider>
   );
 };
 
