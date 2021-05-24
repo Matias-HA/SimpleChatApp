@@ -5,7 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 // Includes
 import Login from '../screens/Login';
-import MainScreen from '../screens/MainScreen';
+import Main from '../screens/Main';
 
 /**
  * @description
@@ -33,7 +33,7 @@ const MainStack = () => {
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name="Main" component={MainScreen} />
+      <Stack.Screen name="Main" component={Main} />
     </Stack.Navigator>
   );
 };
@@ -48,7 +48,7 @@ const Navigation = () => {
       {/*
        * If User has not yet signed in, show the login screen
        */}
-      {state.userInformation === null ? LoginStack() : MainStack()}
+      {true ? LoginStack() : MainStack()}
     </NavigationContainer>
   );
 };
