@@ -9,7 +9,7 @@ const Logo = require('../../shared/assets/images/HoC-logo.png');
 // Styles
 import {Container, TopContainer, BottomContainer} from './styles';
 
-const LoginScreen = () => {
+const Login = () => {
   return (
     <Container>
       <TopContainer>
@@ -31,4 +31,4 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+export default Login;
