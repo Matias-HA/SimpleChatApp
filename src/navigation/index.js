@@ -1,8 +1,56 @@
-import React from 'react';
-import {View, Text} from 'react-native';
+// Libraries
+import React, {useEffect} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 
-const Login = () => {
-  return <View>Test</View>;
+// Includes
+import Login from '../screens/Login';
+import MainScreen from '../screens/MainScreen';
+
+/**
+ * @description
+ * This file handles everything related to navigation
+ */
+
+const Stack = createStackNavigator();
+
+// The Login stack. contains screens shown to the user prior to successfully signing in
+const LoginStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Stack.Screen name="Signin" component={Login} />
+    </Stack.Navigator>
+  );
 };
 
-export default Login;
+// The Main stack. Contains screens shown to the user after successfully signing in
+const MainStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Stack.Screen name="Main" component={MainScreen} />
+    </Stack.Navigator>
+  );
+};
+
+const Navigation = () => {
+  useEffect(() => {
+    // Anything that needs to be loaded on app startup should be added here.
+  }, []);
+
+  return (
+    <NavigationContainer>
+      {/*
+       * If User has not yet signed in, show the login screen
+       */}
+      {state.userInformation === null ? LoginStack() : MainStack()}
+    </NavigationContainer>
+  );
+};
+
+export default Navigation;
