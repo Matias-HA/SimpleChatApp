@@ -1,13 +1,6 @@
 // Libraries
 import React, {useEffect, useState, useCallback} from 'react';
-import {
-  View,
-  FlatList,
-  ActivityIndicator,
-  RefreshControl,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import {View, FlatList, ActivityIndicator, RefreshControl} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 
 // Includes
@@ -39,13 +32,11 @@ const Main = () => {
     // Add the rooms to the redux store
     setChatRooms(rooms);
     setLoading(false);
+    setRefreshing(false);
   }, [refreshing]);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 2000);
   }, [refreshing]);
 
   const SortChatroomsByNewestMessage = () => {
