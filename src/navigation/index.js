@@ -7,6 +7,7 @@ import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 // Includes
+import Colors from '../shared/constants/colors';
 import {setUser} from '../shared/context/auth/reducer';
 import {AddUserIfNotInFirestore} from '../shared/firestore/queries/';
 import Auth from '../shared/constants/auth';
@@ -37,9 +38,27 @@ const MainStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerShown: false,
-      }}>
-      <Stack.Screen name="Main" component={Main} />
+        gestureEnabled: true,
+        gestureDirection: 'horizontal',
+        headerStyle: {
+          backgroundColor: Colors.primary,
+        },
+        headerTitleStyle: {
+          fontWeight: 'bold',
+          color: Colors.text,
+        },
+      }}
+      headerMode="float">
+      <Stack.Screen
+        name="Main"
+        component={Main}
+        options={() => ({
+          title: 'Chat Rooms',
+          headerTintColor: Colors.text,
+          headerLeft: () => null,
+          gestureEnabled: false,
+        })}
+      />
     </Stack.Navigator>
   );
 };
