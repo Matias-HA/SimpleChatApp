@@ -8,6 +8,7 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 // Includes
 import {setUser} from '../shared/context/auth/reducer';
+import {AddUserIfNotInFirestore} from '../shared/firestore/queries/';
 import Auth from '../shared/constants/auth';
 import Login from '../screens/Login';
 import Main from '../screens/Main';
@@ -51,6 +52,9 @@ const Navigation = () => {
 
   // Handle user state changes
   function onAuthStateChanged(user) {
+    if (user) {
+      AddUserIfNotInFirestore(user);
+    }
     dispatch(setUser(user));
     if (initializing) setInitializing(false);
   }
