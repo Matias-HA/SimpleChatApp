@@ -6,14 +6,15 @@ import {useSelector, useDispatch} from 'react-redux';
 
 // Includes
 const Logo = require('../../shared/assets/images/HoC-logo.png');
-import {clearErrorMessage} from '../../shared/context/auth/';
+import {clearErrorMessage} from '../../shared/context/auth/reducer';
+import {signInGoogle} from '../../shared/context/auth/actions';
 
 // Styles
 import {Container, TopContainer, BottomContainer} from './styles';
 
 const Login = () => {
-  const {errorMessage} = useSelector(state => state.auth);
   const dispatch = useDispatch();
+  const {errorMessage} = useSelector(state => state.auth);
 
   useEffect(() => {
     if (errorMessage !== '') {
@@ -36,7 +37,7 @@ const Login = () => {
       <BottomContainer>
         <GoogleSigninButton
           onPress={() => {
-            Alert.alert('Not yet implemented');
+            dispatch(signInGoogle());
           }}
         />
       </BottomContainer>

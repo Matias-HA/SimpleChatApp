@@ -1,10 +1,14 @@
 // Libraries
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import auth from '@react-native-firebase/auth';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 // Includes
+import {setUser} from '../shared/context/auth/reducer';
+import Auth from '../shared/constants/auth';
 import Login from '../screens/Login';
 import Main from '../screens/Main';
 
@@ -40,11 +44,32 @@ const MainStack = () => {
 };
 
 const Navigation = () => {
+  const dispatch = useDispatch();
+  // Set an initializing state whilst Firebase connects
+  const [initializing, setInitializing] = useState(true);
   const {user} = useSelector(state => state.auth);
+
+  // Handle user state changes
+  function onAuthStateChanged(user) {
+    dispatch(setUser(user));
+    if (initializing) setInitializing(false);
+  }
 
   useEffect(() => {
     // Anything that needs to be loaded on app startup should be added here.
+    GoogleSignin.configure({
+      webClientId: Auth.webClientId,
+    });
+
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
   }, []);
+
+  /* the onAuthStateChanged listener is asynchronous and will trigger an initial state once a connection
+   with Firebase has been established. Therefore it is important to setup an "initializing" state which blocks 
+   render of our main application whilst the connection is established
+   */
+  if (initializing) return null;
 
   return (
     <NavigationContainer>
