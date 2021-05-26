@@ -13,6 +13,7 @@ import {AddUserIfNotInFirestore} from '../shared/firestore/queries/';
 import Auth from '../shared/constants/auth';
 import Login from '../screens/Login';
 import Main from '../screens/Main';
+import ChatRoom from '../screens/ChatRoom';
 
 /**
  * @description
@@ -57,6 +58,14 @@ const MainStack = () => {
           headerTintColor: Colors.text,
           headerLeft: () => null,
           gestureEnabled: false,
+        })}
+      />
+      <Stack.Screen
+        name="ChatRoom"
+        component={ChatRoom}
+        options={({route}) => ({
+          title: route.params.name,
+          headerTintColor: Colors.text,
         })}
       />
     </Stack.Navigator>
