@@ -5,12 +5,12 @@ import {useRoute} from '@react-navigation/native';
 
 // Includes
 import Colors from '../../shared/constants/colors';
-
+import InputBox from '../../shared/components/InputBox';
 // Styles
 
 // This is the screen where users can send and read messages belonging to the chatroom
 const ChatRoom = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState([]);
 
   return (
@@ -28,6 +28,8 @@ const ChatRoom = () => {
           renderItem={({item}) => <> </>}
         />
       )}
+
+      <InputBox />
     </View>
   );
 };
