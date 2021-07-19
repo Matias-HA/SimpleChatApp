@@ -30,7 +30,7 @@ const AddUserToFirestore = userState => {
     })
     .catch(error => {
       console.log(
-        'An error has occured while attempting to add user to firestore',
+        'An error has occured in the AddUserToFirestore function while attempting to add a new user to the firestore',
       );
       console.log(error);
     });
