@@ -22,7 +22,7 @@ const ListItem = ({chatRoom}) => {
   //Navigate to selected chatroom
   const onClick = () => {
     navigation.navigate('ChatRoom', {
-      id: chatRoom.id,
+      chatroomID: chatRoom.id,
       name: chatRoom.data.name,
     });
   };

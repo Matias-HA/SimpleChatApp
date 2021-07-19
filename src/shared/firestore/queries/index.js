@@ -35,3 +35,26 @@ const AddUserToFirestore = userState => {
       console.log(error);
     });
 };
+
+// Get the user currently signed in
+export function GetCurrentUser(setUser) {
+  firestore()
+    .collection('Users')
+    .doc(auth().currentUser?.uid)
+    .onSnapshot(documentSnapshot => {
+      setUser({
+        id: auth().currentUser?.uid,
+        name: documentSnapshot.data()?.name,
+        avatar: documentSnapshot.data()?.avatar,
+      });
+    });
+}
+
+// Returns the 50 newest messages from the specified chatroom
+export const GetChatroomMessages = (chatroomId, pageCount = 1) =>
+  firestore()
+    .collection('ChatRooms')
+    .doc(chatroomId)
+    .collection('Messages')
+    .orderBy('createdAt', 'desc')
+    .limit(pageCount * 50);
