@@ -7,7 +7,7 @@ export const AddUserIfNotInFirestore = userState => {
     .collection('Users')
     .doc(userState.uid)
     .onSnapshot(documentSnapshot => {
-      if (!documentSnapshot.data()) {
+      if (documentSnapshot != null && !documentSnapshot.data()) {
         // The current user wasn't found in the firestore, which means we have to add him/her
         AddUserToFirestore(userState);
       }
