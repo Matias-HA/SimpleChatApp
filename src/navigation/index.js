@@ -73,22 +73,13 @@ const MainStack = () => {
 };
 
 const Navigation = () => {
-  const dispatch = useDispatch();
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
   const {user} = useSelector(state => state.auth);
+  const dispatch = useDispatch();
 
-  // Handle user state changes
-  function onAuthStateChanged(user) {
-    if (user) {
-      AddUserIfNotInFirestore(user);
-    }
-    dispatch(setUser(user));
-    if (initializing) setInitializing(false);
-  }
-
+  // Anything that should happen on initial on app startup should be added here.
   useEffect(() => {
-    // Anything that needs to be loaded on app startup should be added here.
     GoogleSignin.configure({
       webClientId: Auth.webClientId,
     });
@@ -96,6 +87,20 @@ const Navigation = () => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
   }, []);
+
+  // Handle user auth state changes
+  const onAuthStateChanged = user => {
+    // If the user doesn't exist in the firestore, they are added
+    if (user) {
+      AddUserIfNotInFirestore(user);
+    }
+
+    // User is saved to the redux store
+    dispatch(setUser(user));
+
+    // Firebase connection has been established and initializing is done
+    if (initializing) setInitializing(false);
+  };
 
   /* the onAuthStateChanged listener is asynchronous and will trigger an initial state once a connection
    with Firebase has been established. Therefore it is important to setup an "initializing" state which blocks 
@@ -108,7 +113,7 @@ const Navigation = () => {
       {/*
        * If User has not yet signed in, show the login screen
        */}
-      {user ? MainStack() : LoginStack()}
+      {!user ? LoginStack() : MainStack()}
     </NavigationContainer>
   );
 };
