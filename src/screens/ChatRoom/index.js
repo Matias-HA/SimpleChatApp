@@ -7,115 +7,84 @@ import firestore from '@react-native-firebase/firestore';
 import Colors from '../../shared/constants/colors';
 import InputBox from '../../shared/components/InputBox';
 import ChatMessageListItem from './ChatMessageListItem';
+import useChatroomMessages from '../../shared/hooks/useChatroomMessages';
 import {
   GetChatroomMessages,
-  GetCurrentUser,
+  GetChatroomMessagesFromLastVisible,
 } from '../../shared/firestore/queries';
 
 // Styles
+import {Container, SpinnerContainer} from './styles';
 
-// This is the screen where users can send and read messages belonging to the chatroom
+/**
+ * @description
+ * This is the screen where users can send and read messages belonging to the specific chatroom
+ */
+
 const ChatRoom = ({route}) => {
-  const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1);
-  const [pageLoading, setPageLoading] = useState(false);
-  const [messages, setMessages] = useState([]);
-  const [user, setUser] = useState();
-
   const {chatroomID} = route.params;
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [messages, setMessages] = useChatroomMessages(chatroomID);
 
+  // Stop loading once messages have been loaded
   useEffect(() => {
-    //Get the current user's firestore information
-    const GetUserInfo = async () => {
-      await GetCurrentUser(setUser);
-    };
-
-    GetUserInfo();
-
-    //Listen for any new messages
-    const unsubscribe = GetChatroomMessages(chatroomID).onSnapshot(snapshot => {
-      let newMessages = [];
-
-      snapshot.docChanges().forEach(change => {
-        if (change.type === 'added') {
-          newMessages.push(change.doc.data());
-          //console.log('New message has been added: ', change.doc.data());
-        }
-        if (change.type === 'modified') {
-          console.log('Message has been modified: ', change.doc.data());
-        }
-        if (change.type === 'removed') {
-          console.log('Message has been removed: ', change.doc.data());
-        }
-      });
-
-      // Add new messages to state
-      setMessages(currentMessages => [...newMessages, ...currentMessages]);
+    if (messages.length > 0) {
       setLoading(false);
-    });
+    }
+  }, [messages]);
 
-    //unsubscribe from listener on unmount
-    return () => {
-      unsubscribe();
-    };
-  }, []);
-
+  // Load more messages once the user reaches the end
   const loadMoreMessages = async () => {
-    // // Get the last visible document
+    // Get the last visible document from the current page
     const lastVisible = await GetChatroomMessages(chatroomID, page)
       .get()
       .then(documentSnapshots => {
         return documentSnapshots.docs[documentSnapshots.docs.length - 1];
       });
 
-    // New query starting at last visible document
-    // get the next 50 messages.
-    // TODO move to query file
-    var next = await firestore()
-      .collection('ChatRooms')
-      .doc(chatroomID)
-      .collection('Messages')
-      .orderBy('createdAt', 'desc')
-      .startAfter(lastVisible)
-      .limit(50);
+    // get the next 50 messages starting from the last visible document
+    var nextMessages = await GetChatroomMessagesFromLastVisible(
+      chatroomID,
+      lastVisible,
+    );
+
     // Add the new messages to our current messages
-    next.get().then(QuerySnapshot => {
+    nextMessages.get().then(QuerySnapshot => {
       let newMessages = [];
       QuerySnapshot.forEach(doc => {
         newMessages.push(doc.data());
       });
       setMessages(currentMessages => [...currentMessages, ...newMessages]);
     });
+
     //Update current page count
     setPage(page + 1);
-    setPageLoading(false);
   };
 
+  if (loading) {
+    return (
+      <SpinnerContainer>
+        <ActivityIndicator size="large" color={Colors.primary} />
+      </SpinnerContainer>
+    );
+  }
+
   return (
-    <View style={{flex: 1}}>
-      {loading ? (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <ActivityIndicator size="large" color={Colors.primary} />
-        </View>
-      ) : (
-        <FlatList
-          data={messages}
-          inverted
-          progressViewOffset={20}
-          onEndReached={() => {
-            if (!pageLoading) {
-              setPageLoading(true);
-              loadMoreMessages();
-              console.log('End reached: Querying for more messages');
-            }
-          }}
-          keyExtractor={(item, index) => 'key' + index}
-          renderItem={({item}) => <ChatMessageListItem message={item} />}
-        />
-      )}
+    <Container>
+      <FlatList
+        data={messages}
+        inverted
+        progressViewOffset={20}
+        onEndReached={() => {
+          loadMoreMessages();
+        }}
+        keyExtractor={(item, index) => 'key' + index}
+        renderItem={({item}) => <ChatMessageListItem message={item} />}
+      />
 
       <InputBox />
-    </View>
+    </Container>
   );
 };
 

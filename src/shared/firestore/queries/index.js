@@ -51,10 +51,20 @@ export function GetCurrentUser(setUser) {
 }
 
 // Returns the 50 newest messages from the specified chatroom
-export const GetChatroomMessages = (chatroomId, pageCount = 1) =>
+export const GetChatroomMessages = chatroomId =>
   firestore()
     .collection('ChatRooms')
     .doc(chatroomId)
     .collection('Messages')
     .orderBy('createdAt', 'desc')
-    .limit(pageCount * 50);
+    .limit(50);
+
+// Returns the 50 messages starting from
+export const GetChatroomMessagesFromLastVisible = (chatroomId, lastVisible) =>
+  firestore()
+    .collection('ChatRooms')
+    .doc(chatroomId)
+    .collection('Messages')
+    .orderBy('createdAt', 'desc')
+    .startAfter(lastVisible)
+    .limit(50);
