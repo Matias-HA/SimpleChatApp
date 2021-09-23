@@ -12,6 +12,11 @@ import {signInGoogle} from '../../shared/context/auth/actions';
 // Styles
 import {Container, TopContainer, BottomContainer} from './styles';
 
+/**
+ * @description
+ * This file handles everything related to login
+ */
+
 const Login = () => {
   const dispatch = useDispatch();
   const {errorMessage} = useSelector(state => state.auth);

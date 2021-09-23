@@ -16,7 +16,6 @@ import {
 } from './styles';
 
 const ListItem = ({chatRoom}) => {
-  console.log(chatRoom);
   const navigation = useNavigation();
 
   //Navigate to selected chatroom
