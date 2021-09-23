@@ -28,8 +28,9 @@ const Main = () => {
     }
   }, [chatrooms]);
 
+  // On refresh we update the list of chatrooms by making another query to the firestore to see if any changes have occured
   const onRefresh = useCallback(() => {
-    if (refreshing) return; // If we are already refreshing we return immediately
+    if (refreshing) return;
 
     setChatrooms();
     setRefreshing(true);
