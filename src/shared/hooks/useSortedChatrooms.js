@@ -1,11 +1,17 @@
+// Libraries
 import {useState, useEffect} from 'react';
 import firestore from '@react-native-firebase/firestore';
+
+/**
+ * @description
+ * This hook allows you to receive all chatrooms present in the firestore sorted by which chatroom has the newest message
+ */
 
 const useSortedChatrooms = () => {
   const [chatrooms, setChatrooms] = useState([]);
 
-  useEffect(async () => {
-    await getChatrooms();
+  useEffect(() => {
+    getChatrooms();
   }, []);
 
   const SortChatroomsByNewestMessage = chatrooms => {
@@ -16,8 +22,8 @@ const useSortedChatrooms = () => {
     return sortedChatrooms;
   };
 
+  // Get chatrooms from the firestore
   const getChatrooms = async () => {
-    // Get chatrooms from the firestore
     const collections = await firestore().collection('ChatRooms').get();
     let rooms = [];
 
@@ -29,7 +35,7 @@ const useSortedChatrooms = () => {
       });
     });
 
-    // sort the chatrooms by newest message and save the state
+    // sort the chatrooms by newest message and set the state
     setChatrooms(SortChatroomsByNewestMessage(rooms));
   };
 
