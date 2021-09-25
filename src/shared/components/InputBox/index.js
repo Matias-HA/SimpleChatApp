@@ -37,11 +37,8 @@ const InputBox = ({onPress, chatroomId}) => {
 
   const onSendClick = async (message, image) => {
     if (image) {
-      console.log('in image');
       UploadImageAndSendMessage(image, message);
     } else {
-      console.log('in Message');
-
       SendMessage(user, chatroomId, message);
     }
   };

@@ -1,10 +1,13 @@
 // Libraries
 import React, {useEffect, useState} from 'react';
+import {TouchableOpacity} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {useSelector, useDispatch} from 'react-redux';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {signout} from '../shared/context/auth/actions';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 // Includes
 import Colors from '../shared/constants/colors';
@@ -14,7 +17,6 @@ import Auth from '../shared/constants/auth';
 import Login from '../screens/Login';
 import Main from '../screens/Main';
 import ChatRoom from '../screens/ChatRoom';
-import {trySigninSilently} from '../shared/context/auth/action';
 
 /**
  * @description
@@ -37,6 +39,8 @@ const LoginStack = () => {
 
 // The Main stack. Contains screens shown to the user after successfully signing in
 const MainStack = () => {
+  const dispatch = useDispatch();
+
   return (
     <Stack.Navigator
       screenOptions={{
@@ -59,6 +63,13 @@ const MainStack = () => {
           headerTintColor: Colors.text,
           headerLeft: () => null,
           gestureEnabled: false,
+          headerRight: () => (
+            <TouchableOpacity
+              style={{marginRight: 15, transform: [{rotateY: '180deg'}]}}
+              onPress={() => signout(dispatch)}>
+              <FontAwesomeIcon name="sign-out" size={35} color="white" />
+            </TouchableOpacity>
+          ),
         })}
       />
       <Stack.Screen

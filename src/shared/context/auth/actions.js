@@ -62,15 +62,12 @@ export const trySigninSilently = () => async dispatch => {
  *
  * @description Signs the user out and clears the user state
  */
-export const signout = dispatch => {
-  return async () => {
+export const signout = async dispatch => {
+  try {
     await auth().signOut();
     await GoogleSignin.signOut();
     dispatch(signOutUser());
-
-    try {
-    } catch (error) {
-      dispatch(setErrorMessage(error.message));
-    }
-  };
+  } catch (error) {
+    dispatch(setErrorMessage(error.message));
+  }
 };
