@@ -11,6 +11,7 @@ import useChatroomMessages from '../../shared/hooks/useChatroomMessages';
 import {
   GetChatroomMessages,
   GetChatroomMessagesFromLastVisible,
+  SendMessage,
 } from '../../shared/firestore/queries';
 
 // Styles
@@ -83,7 +84,7 @@ const ChatRoom = ({route}) => {
         renderItem={({item}) => <ChatMessageListItem message={item} />}
       />
 
-      <InputBox />
+      <InputBox onPress={() => {}} chatroomId={chatroomID} />
     </Container>
   );
 };

@@ -1,5 +1,8 @@
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
+import moment from 'moment';
+
+/* *********************** USER RELATED ******************************* */
 
 // Checks if user already exists in the firestore. The user is added if not found.
 export const AddUserIfNotInFirestore = userState => {
@@ -42,6 +45,8 @@ export function GetCurrentUser(setUser) {
     .collection('Users')
     .doc(auth().currentUser?.uid)
     .onSnapshot(documentSnapshot => {
+      console.log('HERE __________________________');
+      console.log(documentSnapshot.data());
       setUser({
         id: auth().currentUser?.uid,
         name: documentSnapshot.data()?.name,
@@ -49,6 +54,8 @@ export function GetCurrentUser(setUser) {
       });
     });
 }
+
+/* *********************** CHATROOM RELATED ******************************* */
 
 // Returns the 50 newest messages from the specified chatroom
 export const GetChatroomMessages = chatroomId =>
@@ -68,3 +75,40 @@ export const GetChatroomMessagesFromLastVisible = (chatroomId, lastVisible) =>
     .orderBy('createdAt', 'desc')
     .startAfter(lastVisible)
     .limit(50);
+
+// Send Message
+export const SendMessage = (
+  user,
+  chatroomId,
+  messageContent,
+  imageUrl = '',
+) => {
+  try {
+    console.log(user.providerData);
+    console.log(chatroomId);
+    console.log(messageContent);
+    console.log(imageUrl);
+
+    firestore()
+      .collection('ChatRooms')
+      .doc(chatroomId)
+      .collection('Messages')
+      .add({
+        name: user.displayName,
+        content: messageContent,
+        createdAt: moment.now(),
+        userId: user.uid,
+        // avatar: user.avatar,
+        image: imageUrl,
+      })
+      .then(() => {
+        firestore()
+          .collection('ChatRooms')
+          .doc(chatroomId)
+          .update({lastMessageCreatedAt: moment.now()});
+        console.log('Message Sent!');
+      });
+  } catch (error) {
+    console.log(error);
+  }
+};
