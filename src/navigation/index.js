@@ -14,6 +14,7 @@ import Auth from '../shared/constants/auth';
 import Login from '../screens/Login';
 import Main from '../screens/Main';
 import ChatRoom from '../screens/ChatRoom';
+import {trySigninSilently} from '../shared/context/auth/action';
 
 /**
  * @description
@@ -73,10 +74,10 @@ const MainStack = () => {
 };
 
 const Navigation = () => {
+  const dispatch = useDispatch();
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
   const {user} = useSelector(state => state.auth);
-  const dispatch = useDispatch();
 
   // Anything that should happen on initial on app startup should be added here.
   useEffect(() => {
@@ -95,23 +96,23 @@ const Navigation = () => {
       AddUserIfNotInFirestore(user);
     }
 
-    // User is saved to the redux store
+    // User is saved to the redux store for easy access in the future
     dispatch(setUser(user));
 
-    // Firebase connection has been established and initializing is done
+    // Firebase connection has been established and initializing is now done
     if (initializing) setInitializing(false);
   };
 
   /* the onAuthStateChanged listener is asynchronous and will trigger an initial state once a connection
    with Firebase has been established. Therefore it is important to setup an "initializing" state which blocks 
-   render of our main application whilst the connection is established
+   render of our main application whilst the connection is being established
    */
   if (initializing) return null;
 
   return (
     <NavigationContainer>
       {/*
-       * If User has not yet signed in, show the login screen
+       * If the user has not yet signed in, show the login screen
        */}
       {!user ? LoginStack() : MainStack()}
     </NavigationContainer>

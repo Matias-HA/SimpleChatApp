@@ -1,7 +1,9 @@
+// Libraries
 import React from 'react';
 import moment from 'moment';
 import auth from '@react-native-firebase/auth';
 
+// Styles
 import {
   Container,
   MessageContainer,
@@ -16,7 +18,7 @@ import {
 const ChatMessageListItem = props => {
   const {message} = props;
 
-  // Used to check whether or not a message belongs to the current user
+  // If message belongs to the current user we want to display them differently
   const isMyMessage = message.userId === auth().currentUser?.uid;
 
   return (

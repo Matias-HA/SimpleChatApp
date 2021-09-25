@@ -1,15 +1,19 @@
+// Libraries
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import auth from '@react-native-firebase/auth';
+
+// Includes
 import {
   setErrorMessage,
   setUser,
   setAdditionalUserInfo,
   signOutUser,
 } from './reducer';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import auth from '@react-native-firebase/auth';
 
 /**
  * @Description Will attempt to sign in the user and, if successful, update the user state
  */
+
 export const signInGoogle = () => async dispatch => {
   // Try to signin
   try {
@@ -25,9 +29,8 @@ export const signInGoogle = () => async dispatch => {
     console.log(userCredential.user);
     dispatch(setAdditionalUserInfo(userCredential.additionalUserInfo));
     dispatch(setUser(userCredential.user));
-  } catch (err) {
-    const msg = err.message;
-    dispatch(setErrorMessage(msg));
+  } catch (error) {
+    dispatch(setErrorMessage(error.message));
   }
 };
 
@@ -66,9 +69,8 @@ export const signout = dispatch => {
     dispatch(signOutUser());
 
     try {
-    } catch (err) {
-      const msg = err.message;
-      dispatch(setErrorMessage(msg));
+    } catch (error) {
+      dispatch(setErrorMessage(error.message));
     }
   };
 };

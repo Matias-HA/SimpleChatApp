@@ -4,9 +4,9 @@ import {View, FlatList, ActivityIndicator, Text} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 
 // Includes
+import ChatMessageListItem from './ChatMessageListItem';
 import Colors from '../../shared/constants/colors';
 import InputBox from '../../shared/components/InputBox';
-import ChatMessageListItem from './ChatMessageListItem';
 import useChatroomMessages from '../../shared/hooks/useChatroomMessages';
 import {
   GetChatroomMessages,
