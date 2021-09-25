@@ -13,7 +13,7 @@ import Colors from '../../constants/colors';
 // Styles
 import {
   Container,
-  InputContainer,
+  InputAreaContainer,
   ImageContainer,
   SelectedImage,
   CancelSelectedImageBtn,
@@ -22,6 +22,7 @@ import {
   SendBtnContainer,
   SendMessageBtn,
   IconContainer,
+  TextInputContainer,
 } from './styles';
 
 const InputBox = ({onPress}) => {
@@ -30,18 +31,13 @@ const InputBox = ({onPress}) => {
 
   return (
     <Container>
-      <InputContainer>
+      {/* Comment Icon, Input Field and Image Select Button */}
+      <InputAreaContainer>
         <IconContainer>
           <FontAwesomeIcon name="comment" size={26} color="#FFCDD2" />
         </IconContainer>
 
-        {/* Text Input Field */}
-        <View
-          style={{
-            width: '70%',
-            marginHorizontal: 5,
-            justifyContent: 'center',
-          }}>
+        <TextInputContainer>
           {image ? (
             <ImageContainer>
               <SelectedImage source={{uri: image.uri}} />
@@ -69,7 +65,7 @@ const InputBox = ({onPress}) => {
               setImage(undefined);
             }}
           />
-        </View>
+        </TextInputContainer>
 
         {/* Select Image */}
         <SelectImageFromGalleryBtn
@@ -81,7 +77,7 @@ const InputBox = ({onPress}) => {
           }>
           <FontAwesomeIcon name="image" size={26} color={Colors.primary} />
         </SelectImageFromGalleryBtn>
-      </InputContainer>
+      </InputAreaContainer>
 
       {/* Send Button */}
       <SendBtnContainer image={image} message={message}>

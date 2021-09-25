@@ -9,7 +9,7 @@ export const Container = styled.View`
   margin-bottom: 10px;
 `;
 
-export const InputContainer = styled.View`
+export const InputAreaContainer = styled.View`
   width: ${Screen.width * 0.8}px;
   flex-direction: row;
   background-color: white;
@@ -17,6 +17,10 @@ export const InputContainer = styled.View`
   justify-content: flex-end;
   align-items: flex-end;
   padding-bottom: ${Screen.height * 0.017}px;
+`;
+
+export const TextInputContainer = styled.View`
+  width: 75%;
 `;
 
 export const ImageContainer = styled.View`
@@ -43,6 +47,7 @@ export const CancelSelectedImageBtn = styled.TouchableOpacity`
 
 export const ChatTextInput = styled.TextInput`
   font-size: 17px;
+  margin-horizontal: 5px;
   padding: 0px;
 `;
 
