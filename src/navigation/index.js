@@ -1,6 +1,6 @@
 // Libraries
 import React, {useEffect, useState} from 'react';
-import {TouchableOpacity} from 'react-native';
+import {View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {useSelector, useDispatch} from 'react-redux';
@@ -17,6 +17,7 @@ import Auth from '../shared/constants/auth';
 import Login from '../screens/Login';
 import Main from '../screens/Main';
 import ChatRoom from '../screens/ChatRoom';
+import IconBtn from '../shared/components/IconBtn';
 
 /**
  * @description
@@ -39,8 +40,6 @@ const LoginStack = () => {
 
 // The Main stack. Contains screens shown to the user after successfully signing in
 const MainStack = () => {
-  const dispatch = useDispatch();
-
   return (
     <Stack.Navigator
       screenOptions={{
@@ -64,11 +63,15 @@ const MainStack = () => {
           headerLeft: () => null,
           gestureEnabled: false,
           headerRight: () => (
-            <TouchableOpacity
-              style={{marginRight: 15, transform: [{rotateY: '180deg'}]}}
-              onPress={() => signout(dispatch)}>
-              <FontAwesomeIcon name="sign-out" size={35} color="white" />
-            </TouchableOpacity>
+            <View style={{marginRight: 10}}>
+              <IconBtn
+                size={35}
+                color="white"
+                iconName="sign-out"
+                onPress={signout}
+                mirror={true}
+              />
+            </View>
           ),
         })}
       />
