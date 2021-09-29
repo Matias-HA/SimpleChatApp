@@ -6,8 +6,8 @@ import {useSelector, useDispatch} from 'react-redux';
 
 // Includes
 const Logo = require('../../shared/assets/images/HoC-logo.png');
-import {clearErrorMessage} from '../../shared/context/auth/reducer';
-import {signInGoogle} from '../../shared/context/auth/actions';
+import {clearErrorMessage} from '../../shared/redux/auth/reducer';
+import {signInGoogle} from '../../shared/redux/auth/actions';
 
 // Styles
 import {Container, TopContainer, BottomContainer} from './styles';

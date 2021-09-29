@@ -51,6 +51,7 @@ const InputBox = ({onPress, chatroomId}) => {
 
       // create bucket storage reference
       const storageRef = storage().ref(`messages/images/${fileName}`);
+
       // uploads file to firebase storage
       await storageRef.putFile(image.uri).on(
         storage.TaskEvent.STATE_CHANGED,

@@ -6,7 +6,7 @@ import SplashScreen from 'react-native-splash-screen';
 
 // Includes
 import Navigation from './navigation';
-import {store} from './shared/context/store';
+import {store} from './shared/redux/store';
 
 const App = () => {
   useEffect(() => {

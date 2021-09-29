@@ -6,12 +6,12 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {useSelector, useDispatch} from 'react-redux';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import {signout} from '../shared/context/auth/actions';
+import {signout} from '../shared/redux/auth/actions';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 // Includes
 import Colors from '../shared/constants/colors';
-import {setUser} from '../shared/context/auth/reducer';
+import {setUser} from '../shared/redux/auth/reducer';
 import {AddUserIfNotInFirestore} from '../shared/firestore/queries/';
 import Auth from '../shared/constants/auth';
 import Login from '../screens/Login';
