@@ -1,7 +1,6 @@
 // Libraries
 import React, {useEffect, useState} from 'react';
-import {View, FlatList, ActivityIndicator, Text} from 'react-native';
-import firestore from '@react-native-firebase/firestore';
+import {FlatList, ActivityIndicator} from 'react-native';
 
 // Includes
 import ChatMessageListItem from './ChatMessageListItem';
@@ -11,7 +10,6 @@ import useChatroomMessages from '../../shared/hooks/useChatroomMessages';
 import {
   GetChatroomMessages,
   GetChatroomMessagesFromLastVisible,
-  SendMessage,
 } from '../../shared/firestore/queries';
 
 // Styles
@@ -19,7 +17,7 @@ import {Container, SpinnerContainer} from './styles';
 
 /**
  * @description
- * This is the screen where users can send and read messages belonging to the specific chatroom
+ * This screen is where users can send and read messages belonging to a specific chatroom
  */
 
 const ChatRoom = ({route}) => {
@@ -84,7 +82,7 @@ const ChatRoom = ({route}) => {
         renderItem={({item}) => <ChatMessageListItem message={item} />}
       />
 
-      <InputBox onPress={() => {}} chatroomId={chatroomID} />
+      <InputBox chatroomId={chatroomID} />
     </Container>
   );
 };

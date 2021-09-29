@@ -15,6 +15,11 @@ import {
   MessageImage,
 } from './styles';
 
+/**
+ * @description
+ * This component is used to display a message within a chatroom
+ */
+
 const ChatMessageListItem = props => {
   const {message} = props;
 
@@ -24,6 +29,7 @@ const ChatMessageListItem = props => {
   return (
     <Container isMyMessage={isMyMessage}>
       <MessageContainer>
+        {/* If it is our own message we hide the avatar and name */}
         {!isMyMessage && (
           <UserInfoContainer>
             <UserAvatar source={{uri: message.avatar}} />
@@ -31,14 +37,17 @@ const ChatMessageListItem = props => {
           </UserInfoContainer>
         )}
 
+        {/* The text content of the message */}
         {message.content ? (
           <MessageContent isMyMessage={isMyMessage}>
             {message.content}
           </MessageContent>
         ) : null}
 
+        {/* If a message contained an image it is displayed here*/}
         {message.image ? <MessageImage source={{uri: message.image}} /> : null}
 
+        {/* The time since the message was sent to the chatrooom*/}
         <Time isMyMessage={isMyMessage}>
           {moment(message.createdAt).fromNow()}
         </Time>
