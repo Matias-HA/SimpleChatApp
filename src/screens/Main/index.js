@@ -36,6 +36,7 @@ const Main = () => {
     setRefreshing(true);
   }, [refreshing]);
 
+  // Show spinner while waiting for the page to load or refreshing current chatrooms
   if (loading || refreshing)
     return (
       <Container>

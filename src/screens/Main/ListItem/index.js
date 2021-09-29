@@ -1,6 +1,5 @@
 // Libraries
 import React from 'react';
-import {View, Text} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 // Includes
@@ -14,6 +13,11 @@ import {
   Description,
   IndicatorIcon,
 } from './styles';
+
+/**
+ * @description
+ * This component displays information about a specific chatroom as well as handling navigation to said chatroom
+ */
 
 const ListItem = ({chatRoom}) => {
   const navigation = useNavigation();
