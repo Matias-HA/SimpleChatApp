@@ -1,23 +1,24 @@
 // Libraries
 import React, {useEffect, useState} from 'react';
-import {View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {useSelector, useDispatch} from 'react-redux';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import {signout} from '../shared/redux/auth/actions';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 // Includes
 import Colors from '../shared/constants/colors';
 import {setUser} from '../shared/redux/auth/reducer';
+import {signout} from '../shared/redux/auth/actions';
 import {AddUserIfNotInFirestore} from '../shared/firestore/queries/';
 import Auth from '../shared/constants/auth';
 import Login from '../screens/Login';
 import Main from '../screens/Main';
 import ChatRoom from '../screens/ChatRoom';
 import IconBtn from '../shared/components/IconBtn';
+
+// Styles
+import {LogoutBtnContainer} from './styles';
 
 /**
  * @description
@@ -63,15 +64,15 @@ const MainStack = () => {
           headerLeft: () => null,
           gestureEnabled: false,
           headerRight: () => (
-            <View style={{marginRight: 10}}>
+            <LogoutBtnContainer>
               <IconBtn
-                size={35}
+                size={30}
                 color="white"
                 iconName="sign-out"
                 onPress={signout}
                 mirror={true}
               />
-            </View>
+            </LogoutBtnContainer>
           ),
         })}
       />
@@ -93,7 +94,7 @@ const Navigation = () => {
   const [initializing, setInitializing] = useState(true);
   const {user} = useSelector(state => state.auth);
 
-  // Anything that should happen on initial on app startup should be added here.
+  // Anything that should happen on initial on app startup should be added in this useEffect
   useEffect(() => {
     GoogleSignin.configure({
       webClientId: Auth.webClientId,
