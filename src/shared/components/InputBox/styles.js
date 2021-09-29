@@ -1,6 +1,8 @@
+import React from 'react';
 import styled from 'styled-components/native';
 import Colors from '../../constants/colors';
 import Screen from '../../constants/screen';
+import IconBtn from '../../components/IconBtn';
 
 export const Container = styled.View`
   width: 100%;
@@ -17,6 +19,7 @@ export const InputAreaContainer = styled.View`
   justify-content: flex-end;
   align-items: flex-end;
   padding-bottom: ${Screen.height * 0.017}px;
+  padding-right: 10px;
 `;
 
 export const TextInputContainer = styled.View`
@@ -51,9 +54,7 @@ export const ChatTextInput = styled.TextInput`
   padding: 0px;
 `;
 
-export const SelectImageFromGalleryBtn = styled.TouchableOpacity`
-  margin-right: 10px;
-`;
+export const SelectImageFromGalleryBtn = styled(IconBtn)``;
 
 export const SendBtnContainer = styled.View`
   align-items: center;

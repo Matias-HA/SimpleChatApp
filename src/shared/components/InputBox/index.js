@@ -1,13 +1,10 @@
 // Libraries
 import React, {useState} from 'react';
-import {View, TextInput, TouchableOpacity, Keyboard, Image} from 'react-native';
-import {
-  ImagePickerResponse,
-  launchImageLibrary,
-} from 'react-native-image-picker';
+import {Keyboard, Alert} from 'react-native';
+import {launchImageLibrary} from 'react-native-image-picker';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import storage from '@react-native-firebase/storage';
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 import 'react-native-get-random-values';
 import {v4 as uuidv4} from 'uuid';
 
@@ -30,11 +27,19 @@ import {
   TextInputContainer,
 } from './styles';
 
-const InputBox = ({onPress, chatroomId}) => {
+/**
+ * @description
+ * This returns an input box that the user can type text into as well as select images to upload along with the message
+ *
+ * @param {*} chatroomId - Used to specify the specific chatroom the user is sending messages to
+ */
+
+const InputBox = ({chatroomId}) => {
   const {user} = useSelector(state => state.auth);
   const [message, setMessage] = useState('');
   const [image, setImage] = useState();
 
+  // Sends any image and text the user as input
   const onSendClick = async (message, image) => {
     if (image) {
       UploadImageAndSendMessage(image, message);
@@ -43,6 +48,7 @@ const InputBox = ({onPress, chatroomId}) => {
     }
   };
 
+  // Will upload image to firebase and then send any text the user submitted
   const UploadImageAndSendMessage = async (image, message) => {
     try {
       const fileExtension = image.fileName?.split('.').pop();
@@ -56,17 +62,12 @@ const InputBox = ({onPress, chatroomId}) => {
       await storageRef.putFile(image.uri).on(
         storage.TaskEvent.STATE_CHANGED,
         snapshot => {
-          console.log(
-            'progress: ' + snapshot.bytesTransferred / snapshot.totalBytes,
-          );
-
           if (snapshot.state === storage.TaskState.SUCCESS) {
-            console.log('Image has been uploaded successfully');
+            // Image has been uploaded successfully
           }
         },
         error => {
-          console.log('An error occured during image upload');
-          console.log(error);
+          Alert.alert('An error occured during image upload');
         },
         () => {
           storageRef.getDownloadURL().then(downloadUrl => {
@@ -90,6 +91,7 @@ const InputBox = ({onPress, chatroomId}) => {
         </IconContainer>
 
         <TextInputContainer>
+          {/* User Selected Image Will Be Shown Here */}
           {image ? (
             <ImageContainer>
               <SelectedImage source={{uri: image.uri}} />
@@ -105,6 +107,7 @@ const InputBox = ({onPress, chatroomId}) => {
               </CancelSelectedImageBtn>
             </ImageContainer>
           ) : null}
+          {/* Chat Message Input Field*/}
           <ChatTextInput
             placeholder="Type a message"
             multiline
@@ -121,14 +124,15 @@ const InputBox = ({onPress, chatroomId}) => {
 
         {/* Select Image */}
         <SelectImageFromGalleryBtn
+          size={26}
+          color={Colors.primary}
+          iconName="image"
           onPress={() =>
             launchImageLibrary({mediaType: 'photo'}, res => {
-              console.log(res);
               if (!res.didCancel) setImage(res);
             })
-          }>
-          <FontAwesomeIcon name="image" size={26} color={Colors.primary} />
-        </SelectImageFromGalleryBtn>
+          }
+        />
       </InputAreaContainer>
 
       {/* Send Button */}
