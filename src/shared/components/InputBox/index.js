@@ -78,7 +78,7 @@ const InputBox = ({chatroomId}) => {
         },
       );
     } catch (error) {
-      console.log(error);
+      Alert.alert(error);
     }
   };
 

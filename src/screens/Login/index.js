@@ -1,6 +1,6 @@
 // Libraries
-import React, {useEffect} from 'react';
-import {Image, Alert} from 'react-native';
+import React from 'react';
+import {Image} from 'react-native';
 import {GoogleSigninButton} from '@react-native-google-signin/google-signin';
 import {useSelector, useDispatch} from 'react-redux';
 
@@ -10,7 +10,14 @@ import {clearErrorMessage} from '../../shared/redux/auth/reducer';
 import {signInGoogle} from '../../shared/redux/auth/actions';
 
 // Styles
-import {Container, TopContainer, BottomContainer} from './styles';
+import {
+  Container,
+  TopContainer,
+  BottomContainer,
+  ErrorMessageContainer,
+  TextContainer,
+  ErrorMessage,
+} from './styles';
 
 /**
  * @description
@@ -20,14 +27,6 @@ import {Container, TopContainer, BottomContainer} from './styles';
 const Login = () => {
   const dispatch = useDispatch();
   const {errorMessage} = useSelector(state => state.auth);
-
-  useEffect(() => {
-    if (errorMessage !== '') {
-      // Alert the user to any errors that might have occured during the sign in process
-      Alert.alert('Error', errorMessage);
-      dispatch(clearErrorMessage());
-    }
-  }, [errorMessage]);
 
   return (
     <Container>
@@ -45,6 +44,15 @@ const Login = () => {
             dispatch(signInGoogle());
           }}
         />
+
+        {/* Any error messages will be displayed here */}
+        {errorMessage ? (
+          <ErrorMessageContainer>
+            <TextContainer>
+              <ErrorMessage>{errorMessage}</ErrorMessage>
+            </TextContainer>
+          </ErrorMessageContainer>
+        ) : null}
       </BottomContainer>
     </Container>
   );
