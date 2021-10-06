@@ -87,7 +87,7 @@ const InputBox = ({chatroomId}) => {
       {/* Comment Icon, Input Field and Image Select Button */}
       <InputAreaContainer>
         <IconContainer>
-          <FontAwesomeIcon name="comment" size={26} color="#FFCDD2" />
+          <FontAwesomeIcon name="comment" size={26} color={Colors.secondary} />
         </IconContainer>
 
         <TextInputContainer>

@@ -14,6 +14,8 @@ const useSortedChatrooms = () => {
     getChatrooms();
   }, []);
 
+  // Chatrooms are sorted by which has the most recent message.
+  // Sorted: Newest -> Oldest
   const SortChatroomsByNewestMessage = chatrooms => {
     const sortedChatrooms = chatrooms?.sort((chatroomA, chatroomB) =>
       chatroomA.lastMessageCreatedAt < chatroomB.lastMessageCreatedAt ? 1 : -1,
