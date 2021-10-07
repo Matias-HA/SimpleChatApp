@@ -67,9 +67,9 @@ This app currently only works on android devices since I'm lacking the necessary
 
 ### Folder Structure
 
-Below is a glimpse of how the project is structured. Any reuseable part, such as constants, hooks, components and so on are placed under the shared folder. The navigation folder contains the sole component that handles navigation. The Screens folder consists of sub folders that each contain everything related to a single screen only. The components within each of the screen sub folder folders are built using the reusable elements from the shared folder whenever possible.
+Below is a general overview of how the project is structured. Any reuseable part, such as constants, hooks, components and so on are placed under the shared folder. The navigation folder contains the sole component that handles navigation. The Screens folder consists of sub folders that each contain everything related to one specific screen. The components within each of the screen sub folders are built using the reusable elements from the shared folder whenever possible.
 
-I have found that this way of structuring a project gives me the best overview while also clearly separating which code belongs where.
+I have found that this way of structuring a project gives me the best overview while also clearly delineating delineating what code belongs where.
 
     ├── src                   
     │   ├── navigation            # Navigation contains files related to managing navigation  
@@ -88,8 +88,6 @@ Below I have listed the main libraries used for this project along with their pu
 * []() Redux Toolkit for cleaner state management.
 * []() Firebase for handling login and firestore for storing infomation about users, chatrooms and messages sent.
 * []() Styled Components for cleaner and more readable styling.
-
-
 
 
 
