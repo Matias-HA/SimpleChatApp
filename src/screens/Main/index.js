@@ -5,6 +5,7 @@ import {FlatList, ActivityIndicator, RefreshControl} from 'react-native';
 // Includes
 import Colors from '../../shared/constants/colors';
 import ListItem from './ListItem';
+import Circle from '../../shared/components/Circle';
 import useSortedChatrooms from '../../shared/hooks/useSortedChatrooms';
 
 // Styles
@@ -20,7 +21,7 @@ const Main = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [chatrooms, setChatrooms] = useSortedChatrooms();
 
-  // Once chatrooms have been set we are done loading
+  // Once chatrooms have been set it should stop loading
   useEffect(() => {
     if (chatrooms.length > 0) {
       setLoading(false);
@@ -28,7 +29,7 @@ const Main = () => {
     }
   }, [chatrooms]);
 
-  // On refresh we update the list of chatrooms by making another query to the firestore to see if any changes have occured
+  // On refresh the list of chatrooms is updated by making another query to the firestore to see if any changes have occured
   const onRefresh = useCallback(() => {
     if (refreshing) return;
 
@@ -53,6 +54,20 @@ const Main = () => {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
+      />
+      <Circle
+        height={0.6}
+        color={Colors.primary}
+        elevation={14}
+        top={0.85}
+        right={-0.3}
+      />
+      <Circle
+        height={0.4}
+        color={Colors.secondary}
+        elevation={15}
+        top={0.83}
+        right={0.55}
       />
     </ListContainer>
   );

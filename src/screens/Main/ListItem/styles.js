@@ -5,17 +5,15 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 export const ClickableContainer = styled.TouchableOpacity`
   flex: 1;
-  height: ${Screen.height * 0.1}px;
+  height: ${Screen.height * 0.11}px;
   flex-direction: row;
-  border-bottom-width: 1px;
-  border-color: ${Colors.divider};
 `;
 
 export const InfoContainer = styled.View`
   flex: 0.9;
   flex-direction: column;
-  justify-content: space-around;
   margin: 10px;
+  justify-content: center;
 `;
 
 export const Name = styled.Text`

@@ -6,12 +6,12 @@ import {useSelector, useDispatch} from 'react-redux';
 // Includes
 import {signInGoogle} from '../../shared/redux/auth/actions';
 import Colors from '../../shared/constants/colors';
+import Circle from '../../shared/components/Circle';
 
 // Styles
 import {
   Container,
   TopContainer,
-  Circle,
   BottomContainer,
   ErrorMessageContainer,
   TextContainer,
