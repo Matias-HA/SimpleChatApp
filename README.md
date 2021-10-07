@@ -71,7 +71,7 @@ This app currently only works on android devices since I'm lacking the necessary
 
 Below is a general overview of how the project is structured. Any reuseable part, such as constants, hooks, components and so on are placed under the shared folder. The navigation folder contains the sole component that handles navigation. The Screens folder consists of sub folders that each contain everything related to one specific screen. The components within each of the screen sub folders are built using the reusable elements from the shared folder whenever possible.
 
-I have found that this way of structuring a project gives me the best overview while also clearly delineating delineating what code belongs where.
+I have found that this way of structuring a project gives me the best overview while also clearly delineating what code belongs where.
 
     ├── src                   
     │   ├── navigation            # Navigation contains files related to managing navigation  
