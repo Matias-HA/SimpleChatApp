@@ -61,7 +61,7 @@
 
 ### Description
 
-This is a simple chat app. The app consists of a login screen, where the user can sign in using their google account, and a list of chatrooms that users can enter to chat with each other.
+This is a simple chat app. The app consists of three screens. a login screen, where the user can sign in using their google account. The main screen gives an overview of each chatroom the user can enter. The Third screen is where the user can type to chat with other users.
 
 <img src="https://user-images.githubusercontent.com/84104310/136424526-5e815eef-cd8b-4a4f-8dca-a611b9a6bc82.jpg" width="30%"></img> <img src="https://user-images.githubusercontent.com/84104310/136424544-4e85b9b4-eeca-4d33-b435-b272055c700b.jpg" width="30%"></img> <img src="https://user-images.githubusercontent.com/84104310/136424573-a3f2d8b1-1142-44b3-964e-ec1662707f9a.jpg" width="30%"></img> 
 
