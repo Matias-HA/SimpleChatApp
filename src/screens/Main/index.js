@@ -21,7 +21,7 @@ const Main = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [chatrooms, setChatrooms] = useSortedChatrooms();
 
-  // Once chatrooms have been set it should stop loading
+  // Once chatrooms have been set it will stop loading
   useEffect(() => {
     if (chatrooms.length > 0) {
       setLoading(false);

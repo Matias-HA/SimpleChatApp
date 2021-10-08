@@ -23,7 +23,7 @@ import {
 const ChatMessageListItem = props => {
   const {message} = props;
 
-  // If message belongs to the current user we want to display them differently
+  // Check to see if the message belongs to the current user
   const isMyMessage = message.userId === auth().currentUser?.uid;
 
   return (

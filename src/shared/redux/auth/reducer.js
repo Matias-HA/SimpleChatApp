@@ -1,5 +1,9 @@
 import {createSlice, dispatch} from '@reduxjs/toolkit';
 
+/**
+ * @Description This file contains the auth related reducers as well as the initial auth state
+ */
+
 const authSlice = createSlice({
   name: 'auth',
   initialState: {

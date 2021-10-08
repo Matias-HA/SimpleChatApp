@@ -26,7 +26,7 @@ const ChatRoom = ({route}) => {
   const [page, setPage] = useState(1);
   const [messages, setMessages] = useChatroomMessages(chatroomID);
 
-  // Stop loading once messages have been loaded
+  // Stop loading once messages have been set
   useEffect(() => {
     if (messages.length > 0) {
       setLoading(false);

@@ -8,6 +8,10 @@ import SplashScreen from 'react-native-splash-screen';
 import Navigation from './navigation';
 import {store} from './shared/redux/store';
 
+/**
+ * @Description This is the top level component of the app
+ */
+
 const App = () => {
   useEffect(() => {
     SplashScreen.hide();

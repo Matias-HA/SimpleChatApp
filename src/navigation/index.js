@@ -88,10 +88,10 @@ const MainStack = () => {
   );
 };
 
+// The component that returns the relevant stack to the user based on their current auth status
 const Navigation = () => {
   const dispatch = useDispatch();
-  // Set an initializing state whilst Firebase connects
-  const [initializing, setInitializing] = useState(true);
+  const [initializing, setInitializing] = useState(true); // Set an initializing state whilst Firebase connects
   const {user} = useSelector(state => state.auth);
 
   // Anything that should happen on initial on app startup should be added in this useEffect
@@ -120,7 +120,7 @@ const Navigation = () => {
 
   /* the onAuthStateChanged listener is asynchronous and will trigger an initial state once a connection
    with Firebase has been established. Therefore it is important to setup an "initializing" state which blocks 
-   render of our main application whilst the connection is being established
+   render of the main application whilst the connection is being established
    */
   if (initializing) return null;
 

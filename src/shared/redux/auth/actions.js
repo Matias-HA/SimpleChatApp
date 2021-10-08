@@ -11,11 +11,11 @@ import {
 } from './reducer';
 
 /**
- * @Description Will attempt to sign in the user and, if successful, update the user state
+ * @Description This file contains the redux auth related ation
  */
 
+// Will attempt to sign in the user and, if successful, update the user state
 export const signInGoogle = () => async dispatch => {
-  // Try to signin
   try {
     // Get the users ID token
     const {idToken} = await GoogleSignin.signIn();
@@ -34,11 +34,7 @@ export const signInGoogle = () => async dispatch => {
   }
 };
 
-/**
- *
- * @description If the user is already signed it, skip the sign in process
- */
-
+// If the user is already signed it, skip the sign in process
 export const trySigninSilently = () => async dispatch => {
   try {
     const {idToken} = await GoogleSignin.signInSilently();
@@ -58,10 +54,7 @@ export const trySigninSilently = () => async dispatch => {
   } catch (error) {}
 };
 
-/**
- *
- * @description Signs the user out and clears the user state
- */
+// Signs the user out and clears the user state
 export const signout = async dispatch => {
   try {
     await auth().signOut();
