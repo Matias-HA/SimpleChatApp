@@ -3,12 +3,7 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 
 // Includes
-import {
-  setErrorMessage,
-  setUser,
-  setAdditionalUserInfo,
-  signOutUser,
-} from './reducer';
+import {setErrorMessage, signOutUser} from './reducer';
 
 /**
  * @Description This file contains the redux auth related ation
@@ -24,11 +19,7 @@ export const signInGoogle = () => async dispatch => {
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
     // Sign-in the user with the credential
-    const userCredential = await auth().signInWithCredential(googleCredential);
-
-    console.log(userCredential.user);
-    dispatch(setAdditionalUserInfo(userCredential.additionalUserInfo));
-    dispatch(setUser(userCredential.user));
+    await auth().signInWithCredential(googleCredential);
   } catch (error) {
     dispatch(setErrorMessage(error.message));
   }
@@ -44,12 +35,7 @@ export const trySigninSilently = () => async dispatch => {
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
       // Sign-in the user with the credential
-      const userCredential = await auth().signInWithCredential(
-        googleCredential,
-      );
-
-      dispatch(setAdditionalUserInfo(userCredential.additionalUserInfo));
-      dispatch(setUser(userCredential.user));
+      await auth().signInWithCredential(googleCredential);
     }
   } catch (error) {}
 };

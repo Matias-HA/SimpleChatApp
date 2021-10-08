@@ -1,3 +1,5 @@
+// Libraries
+import {Alert} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import moment from 'moment';
@@ -27,32 +29,27 @@ const AddUserToFirestore = userState => {
       avatar: `https://picsum.photos/300/300?random&t=${new Date().getTime()}`,
     })
     .then(() => {
-      console.log(
-        `The user: ${userState.displayName} has been added to the firestore`,
-      );
+      // Success related logic goes here
     })
     .catch(error => {
-      console.log(
-        'An error has occured in the AddUserToFirestore function while attempting to add a new user to the firestore',
-      );
-      console.log(error);
+      Alert.alert('An error occurred while attempting to save your user info');
     });
 };
 
-// Get the user currently signed in
-export function GetCurrentUser(setUser) {
-  firestore()
-    .collection('Users')
-    .doc(auth().currentUser?.uid)
-    .onSnapshot(documentSnapshot => {
-      console.log('HERE __________________________');
-      console.log(documentSnapshot.data());
-      setUser({
-        id: auth().currentUser?.uid,
-        name: documentSnapshot.data()?.name,
-        avatar: documentSnapshot.data()?.avatar,
-      });
+// get info of the user currently signed in
+export function GetCurrentUserInfoFromFirestore() {
+  let userId = auth().currentUser?.uid;
+  let docRef = firestore().collection('Users').doc(userId);
+
+  try {
+    return docRef.get().then(doc => {
+      if (doc.exists) {
+        return {userId: userId, ...doc.data()};
+      }
     });
+  } catch (error) {
+    Alert.alert('An error occured while attempting to retrieve user info');
+  }
 }
 
 /* *********************** CHATROOM RELATED ******************************* */
@@ -77,28 +74,23 @@ export const GetChatroomMessagesFromLastVisible = (chatroomId, lastVisible) =>
     .limit(50);
 
 // Send Message
-export const SendMessage = (
+export const SendMessage = async (
   user,
   chatroomId,
   messageContent,
   imageUrl = '',
 ) => {
   try {
-    console.log(user.providerData);
-    console.log(chatroomId);
-    console.log(messageContent);
-    console.log(imageUrl);
-
     firestore()
       .collection('ChatRooms')
       .doc(chatroomId)
       .collection('Messages')
       .add({
-        name: user.displayName,
+        name: user.name,
         content: messageContent,
         createdAt: moment.now(),
-        userId: user.uid,
-        // avatar: user.avatar,
+        userId: user.userId,
+        avatar: user.avatar,
         image: imageUrl,
       })
       .then(() => {
@@ -106,9 +98,8 @@ export const SendMessage = (
           .collection('ChatRooms')
           .doc(chatroomId)
           .update({lastMessageCreatedAt: moment.now()});
-        console.log('Message Sent!');
       });
   } catch (error) {
-    console.log(error);
+    Alert.alert('Error occured while attempting to send message');
   }
 };

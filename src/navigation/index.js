@@ -8,9 +8,12 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 // Includes
 import Colors from '../shared/constants/colors';
-import {setUser} from '../shared/redux/auth/reducer';
+import {setUser, setAdditionalUserInfo} from '../shared/redux/auth/reducer';
 import {signout} from '../shared/redux/auth/actions';
-import {AddUserIfNotInFirestore} from '../shared/firestore/queries/';
+import {
+  AddUserIfNotInFirestore,
+  GetCurrentUserInfoFromFirestore,
+} from '../shared/firestore/queries/';
 import Auth from '../shared/constants/auth';
 import Login from '../screens/Login';
 import Main from '../screens/Main';
@@ -105,14 +108,16 @@ const Navigation = () => {
   }, []);
 
   // Handle user auth state changes
-  const onAuthStateChanged = user => {
+  const onAuthStateChanged = async user => {
     // If the user doesn't exist in the firestore, they are added
     if (user) {
       AddUserIfNotInFirestore(user);
-    }
 
-    // User is saved to the redux store for easy access in the future
-    dispatch(setUser(user));
+      // User is saved to the redux store for easy access in the future
+      let firestoreUserInfo = await GetCurrentUserInfoFromFirestore();
+      dispatch(setUser(firestoreUserInfo));
+      dispatch(setAdditionalUserInfo(user));
+    }
 
     // Firebase connection has been established and initializing is now done
     if (initializing) setInitializing(false);
