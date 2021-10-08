@@ -51,7 +51,7 @@ const MainStack = () => {
         },
         headerTitleStyle: {
           fontWeight: 'bold',
-          color: Colors.text,
+          color: Colors.white,
         },
       }}
       headerMode="float">
@@ -60,14 +60,14 @@ const MainStack = () => {
         component={Main}
         options={() => ({
           title: 'Chat Rooms',
-          headerTintColor: Colors.text,
+          headerTintColor: Colors.white,
           headerLeft: () => null,
           gestureEnabled: false,
           headerRight: () => (
             <LogoutBtnContainer>
               <IconBtn
                 size={30}
-                color="white"
+                color={Colors.white}
                 iconName="sign-out"
                 onPress={signout}
                 mirror={true}
@@ -81,7 +81,7 @@ const MainStack = () => {
         component={ChatRoom}
         options={({route}) => ({
           title: route.params.name,
-          headerTintColor: Colors.text,
+          headerTintColor: Colors.white,
         })}
       />
     </Stack.Navigator>

@@ -6,7 +6,8 @@ import BasicText from '../../../shared/components/BasicText';
 
 export const Container = styled.View`
   align-self: ${props => (props.isMyMessage ? 'flex-end' : 'flex-start')}
-  background-color: ${props => (props.isMyMessage ? Colors.primary : 'white')};
+  background-color: ${props =>
+    props.isMyMessage ? Colors.primary : Colors.white};
   margin: 15px;
   border-radius: 5px;
 `;
@@ -43,11 +44,11 @@ export const UserName = styled(props => <BasicText {...props} />)`
 `;
 
 export const MessageContent = styled(props => <BasicText {...props} />)`
-  color: ${props => (props.isMyMessage ? Colors.text : Colors.black)};
+  color: ${props => (props.isMyMessage ? Colors.white : Colors.black)};
 `;
 
 export const Time = styled(props => <BasicText {...props} />)`
-  color: ${props => (props.isMyMessage ? Colors.text : Colors.black)};
+  color: ${props => (props.isMyMessage ? Colors.white : Colors.black)};
   opacity: 0.7;
   margin-left: auto;
   padding: 3px;
