@@ -5,7 +5,7 @@ import {FlatList, ActivityIndicator} from 'react-native';
 // Includes
 import ChatMessageListItem from './ChatMessageListItem';
 import Colors from '../../shared/constants/colors';
-import InputBox from '../../shared/components/InputBox';
+import InputBox from './InputBox';
 import useChatroomMessages from '../../shared/hooks/useChatroomMessages';
 import {
   GetChatroomMessages,

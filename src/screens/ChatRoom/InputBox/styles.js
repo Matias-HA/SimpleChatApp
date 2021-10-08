@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import Colors from '../../constants/colors';
-import Screen from '../../constants/screen';
-import IconBtn from '../../components/IconBtn';
+import Colors from '../../../shared/constants/colors';
+import Screen from '../../../shared/constants/screen';
+import IconBtn from '../../../shared/components/IconBtn';
 
 export const Container = styled.View`
   width: 100%;
