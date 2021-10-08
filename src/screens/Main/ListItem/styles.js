@@ -1,7 +1,9 @@
+import React from 'react';
 import styled from 'styled-components/native';
 import Screen from '../../../shared/constants/screen';
 import Colors from '../../../shared/constants/colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import BasicText from '../../../shared/components/BasicText';
 
 export const ClickableContainer = styled.TouchableOpacity`
   flex: 1;
@@ -16,15 +18,16 @@ export const InfoContainer = styled.View`
   justify-content: center;
 `;
 
-export const Name = styled.Text`
-  font-size: 16px;
+export const Name = styled(props => <BasicText {...props} />)`
   font-weight: bold;
+  font-size: 16px;
   color: ${Colors.primary};
 `;
 
-export const Description = styled.Text`
+export const Description = styled(props => <BasicText {...props} />)`
   font-size: 14px;
-  color: grey;
+  color: ${Colors.black};
+  opacity: 0.5;
 `;
 
 export const IndicatorIcon = styled(Icon)`

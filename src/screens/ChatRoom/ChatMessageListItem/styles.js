@@ -1,6 +1,8 @@
+import React from 'react';
 import styled from 'styled-components/native';
 import Screen from '../../../shared/constants/screen';
 import Colors from '../../../shared/constants/colors';
+import BasicText from '../../../shared/components/BasicText';
 
 export const Container = styled.View`
   align-self: ${props => (props.isMyMessage ? 'flex-end' : 'flex-start')}
@@ -33,21 +35,20 @@ export const MessageImage = styled.Image`
   margin-vertical: 10px;
 `;
 
-export const UserName = styled.Text`
+export const UserName = styled(props => <BasicText {...props} />)`
   align-self: center;
-  color: ${Colors.primary};
-  font-size: 14px;
   font-weight: bold;
+  font-size: 14px;
+  color: ${Colors.primary};
 `;
 
-export const MessageContent = styled.Text`
-  color: ${props => (props.isMyMessage ? Colors.text : 'black')};
+export const MessageContent = styled(props => <BasicText {...props} />)`
+  color: ${props => (props.isMyMessage ? Colors.text : Colors.black)};
 `;
 
-export const Time = styled.Text`
-  color: ${props => (props.isMyMessage ? Colors.text : 'black')};
-  font-size: 12px;
-  opacity: 0.5;
+export const Time = styled(props => <BasicText {...props} />)`
+  color: ${props => (props.isMyMessage ? Colors.text : Colors.black)};
+  opacity: 0.7;
   margin-left: auto;
   padding: 3px;
 `;
