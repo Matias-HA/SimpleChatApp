@@ -1,5 +1,8 @@
+// Libraries
 import React from 'react';
 import styled from 'styled-components/native';
+
+// Includes
 import Colors from '../../../shared/constants/colors';
 import Screen from '../../../shared/constants/screen';
 import IconBtn from '../../../shared/components/IconBtn';

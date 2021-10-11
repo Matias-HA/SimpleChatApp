@@ -1,4 +1,7 @@
+// Libraries
 import styled from 'styled-components/native';
+
+// Includes
 import Screen from '../../constants/screen';
 
 export const Circle = styled.View`

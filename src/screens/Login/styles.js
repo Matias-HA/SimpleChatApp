@@ -1,8 +1,11 @@
+// Libraries
 import React from 'react';
 import styled from 'styled-components/native';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+
+// Includes
 import Colors from '../../shared/constants/colors';
 import Screen from '../../shared/constants/screen';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import BasicText from '../../shared/components/BasicText';
 
 export const Container = styled.View`

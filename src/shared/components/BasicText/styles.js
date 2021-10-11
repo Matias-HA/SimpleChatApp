@@ -1,4 +1,7 @@
+// Libraries
 import styled from 'styled-components/native';
+
+// Includes
 import Colors from '../../constants/colors';
 
 export const BasicText = styled.Text`

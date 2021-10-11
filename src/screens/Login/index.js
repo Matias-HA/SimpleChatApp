@@ -7,6 +7,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {signInGoogle} from '../../shared/redux/auth/actions';
 import Colors from '../../shared/constants/colors';
 import Circle from '../../shared/components/Circle';
+import {clearErrorMessage} from '../../shared/redux/auth/reducer';
 
 // Styles
 import {
@@ -20,7 +21,6 @@ import {
   IconContainer,
   SignInMessage,
 } from './styles';
-import {clearErrorMessage} from '../../shared/redux/auth/reducer';
 
 /**
  * @description

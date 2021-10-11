@@ -1,3 +1,4 @@
+// Libraries
 import styled from 'styled-components/native';
 
 export const ClickableContainer = styled.TouchableOpacity`

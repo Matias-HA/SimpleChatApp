@@ -1,8 +1,11 @@
+// Libraries
 import React from 'react';
 import styled from 'styled-components/native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+// Includes
 import Screen from '../../../shared/constants/screen';
 import Colors from '../../../shared/constants/colors';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import BasicText from '../../../shared/components/BasicText';
 
 export const ClickableContainer = styled.TouchableOpacity`

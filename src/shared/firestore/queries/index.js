@@ -63,7 +63,7 @@ export const GetChatroomMessages = chatroomId =>
     .orderBy('createdAt', 'desc')
     .limit(50);
 
-// Returns the 50 messages starting from
+// Returns the next 50 messages starting from last visible message
 export const GetChatroomMessagesFromLastVisible = (chatroomId, lastVisible) =>
   firestore()
     .collection('ChatRooms')
@@ -73,7 +73,7 @@ export const GetChatroomMessagesFromLastVisible = (chatroomId, lastVisible) =>
     .startAfter(lastVisible)
     .limit(50);
 
-// Send Message
+// Send message to the firestore containing either just text or text + an image
 export const SendMessage = async (
   user,
   chatroomId,
