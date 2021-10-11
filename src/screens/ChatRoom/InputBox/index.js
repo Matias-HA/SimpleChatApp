@@ -39,13 +39,17 @@ const InputBox = ({chatroomId}) => {
   const [message, setMessage] = useState('');
   const [image, setImage] = useState();
 
-  // Sends any image and text the user as input
-  const onSendClick = async (message, image) => {
+  // Sends any image and text the user has input
+  const handleSendMessage = async (message, image) => {
     if (image) {
       UploadImageAndSendMessage(image, message);
     } else {
       SendMessage(user, chatroomId, message);
     }
+
+    // clear message and image
+    setMessage('');
+    setImage(undefined);
   };
 
   // Will upload image to firebase and then send any text the user submitted
@@ -82,9 +86,21 @@ const InputBox = ({chatroomId}) => {
     }
   };
 
+  // Open image picker for user to select an image they want to send
+  const openImagePicker = () => {
+    launchImageLibrary({mediaType: 'photo'}, res => {
+      if (res.errorCode) {
+        Alert.alert(res.errorMessage);
+        return;
+      }
+
+      if (!res.didCancel) setImage(res);
+    });
+  };
+
   return (
     <Container>
-      {/* Comment Icon, Input Field and Image Select Button */}
+      {/* InputAreaContainer contains Comment Icon, Input Field and Image Select Button */}
       <InputAreaContainer>
         <IconContainer>
           <FontAwesomeIcon name="comment" size={26} color={Colors.secondary} />
@@ -115,9 +131,7 @@ const InputBox = ({chatroomId}) => {
             value={message}
             onChangeText={setMessage}
             onSubmitEditing={() => {
-              onSendClick(message, image);
-              setMessage('');
-              setImage(undefined);
+              handleSendMessage(message, image);
             }}
           />
         </TextInputContainer>
@@ -127,21 +141,15 @@ const InputBox = ({chatroomId}) => {
           size={26}
           color={Colors.primary}
           iconName="image"
-          onPress={() =>
-            launchImageLibrary({mediaType: 'photo'}, res => {
-              if (!res.didCancel) setImage(res);
-            })
-          }
+          onPress={() => openImagePicker()}
         />
       </InputAreaContainer>
 
-      {/* Send Button */}
+      {/* Send Message Button */}
       <SendBtnContainer image={image} message={message}>
         <SendMessageBtn
           onPress={() => {
-            onSendClick(message, image);
-            setMessage('');
-            setImage(undefined);
+            handleSendMessage(message, image);
             Keyboard.dismiss();
           }}
           disabled={message || image ? false : true}>
