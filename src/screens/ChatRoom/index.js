@@ -61,6 +61,11 @@ const ChatRoom = ({route}) => {
     setPage(page + 1);
   };
 
+  const keyExtractor = (item, index) => 'key' + index;
+
+  // Each list item represents a message within the chatroom
+  const renderItem = ({item}) => <ChatMessageListItem message={item} />;
+
   if (loading) {
     return (
       <SpinnerContainer>
@@ -78,8 +83,8 @@ const ChatRoom = ({route}) => {
         onEndReached={() => {
           loadMoreMessages();
         }}
-        keyExtractor={(item, index) => 'key' + index}
-        renderItem={({item}) => <ChatMessageListItem message={item} />}
+        keyExtractor={keyExtractor}
+        renderItem={renderItem}
       />
 
       <InputBox chatroomId={chatroomID} />

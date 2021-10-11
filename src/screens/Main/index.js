@@ -37,6 +37,15 @@ const Main = () => {
     setRefreshing(true);
   }, [refreshing]);
 
+  const keyExtractor = item => item.id;
+
+  // Each ListItem represents a chatroom
+  const renderItem = ({item}) => <ListItem chatRoom={item} />;
+
+  const refreshControl = () => (
+    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+  );
+
   // Show spinner while waiting for the page to load or refreshing current chatrooms
   if (loading || refreshing)
     return (
@@ -49,11 +58,9 @@ const Main = () => {
     <ListContainer>
       <FlatList
         data={chatrooms}
-        keyExtractor={item => item.id}
-        renderItem={({item}) => <ListItem chatRoom={item} />}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
+        keyExtractor={keyExtractor}
+        renderItem={renderItem}
+        refreshControl={refreshControl}
       />
       <Circle
         height={0.6}
