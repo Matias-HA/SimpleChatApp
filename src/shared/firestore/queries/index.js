@@ -54,6 +54,9 @@ export function GetCurrentUserInfoFromFirestore() {
 
 /* *********************** CHATROOM RELATED ******************************* */
 
+// Get all chatrooms
+export const GetAllChatrooms = () => firestore().collection('ChatRooms').get();
+
 // Returns the 50 newest messages from the specified chatroom
 export const GetChatroomMessages = chatroomId =>
   firestore()

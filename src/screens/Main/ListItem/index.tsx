@@ -4,6 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 
 // Includes
 import Colors from '../../../shared/constants/colors';
+import {ChatRoomData} from '../../../shared/types';
 
 // Styles
 import {
@@ -19,7 +20,11 @@ import {
  * This component displays information about a specific chatroom as well as handling navigation to said chatroom
  */
 
-const ListItem = ({chatRoom}) => {
+interface Props {
+  chatRoom: ChatRoomData;
+}
+
+const ListItem = ({chatRoom}: Props) => {
   const navigation = useNavigation();
 
   //Navigate to selected chatroom

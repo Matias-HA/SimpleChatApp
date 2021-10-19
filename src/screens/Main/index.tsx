@@ -1,12 +1,18 @@
 // Libraries
 import React, {useEffect, useState, useCallback} from 'react';
-import {FlatList, ActivityIndicator, RefreshControl} from 'react-native';
+import {
+  FlatList,
+  ActivityIndicator,
+  RefreshControl,
+  ListRenderItemInfo,
+} from 'react-native';
 
 // Includes
 import Colors from '../../shared/constants/colors';
 import ListItem from './ListItem';
 import Circle from '../../shared/components/Circle';
 import useSortedChatrooms from '../../shared/hooks/useSortedChatrooms';
+import {ChatRoomData} from '../../shared/types';
 
 // Styles
 import {Container, ListContainer} from './styles';
@@ -17,8 +23,8 @@ import {Container, ListContainer} from './styles';
  */
 
 const Main = () => {
-  const [loading, setLoading] = useState(true);
-  const [refreshing, setRefreshing] = useState(false);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [refreshing, setRefreshing] = useState<boolean>(false);
   const [chatrooms, setChatrooms] = useSortedChatrooms();
 
   // Once chatrooms have been set it will stop loading
@@ -37,10 +43,12 @@ const Main = () => {
     setRefreshing(true);
   }, [refreshing]);
 
-  const keyExtractor = item => item.id;
+  const keyExtractor = (item: ChatRoomData) => item.id;
 
   // Each ListItem represents a chatroom
-  const renderItem = ({item}) => <ListItem chatRoom={item} />;
+  const renderItem = ({item}: {item: ChatRoomData}) => (
+    <ListItem chatRoom={item} />
+  );
 
   const refreshControl = () => (
     <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
@@ -60,7 +68,7 @@ const Main = () => {
         data={chatrooms}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
-        refreshControl={refreshControl}
+        refreshControl={refreshControl()}
       />
       <Circle
         height={0.6}
