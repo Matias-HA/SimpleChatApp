@@ -1,13 +1,18 @@
 // Libraries
 import {Alert} from 'react-native';
-import firestore from '@react-native-firebase/firestore';
-import auth from '@react-native-firebase/auth';
+import firestore, {
+  FirebaseFirestoreTypes,
+} from '@react-native-firebase/firestore';
+import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import moment from 'moment';
+
+// Includes
+import {UserInfo} from '../../types';
 
 /* *********************** USER RELATED ******************************* */
 
 // Checks if user already exists in the firestore. The user is added if not found.
-export const AddUserIfNotInFirestore = userState => {
+export const AddUserIfNotInFirestore = (userState: FirebaseAuthTypes.User) => {
   firestore()
     .collection('Users')
     .doc(userState.uid)
@@ -20,7 +25,7 @@ export const AddUserIfNotInFirestore = userState => {
 };
 
 // Adds user to the firestore
-const AddUserToFirestore = userState => {
+const AddUserToFirestore = (userState: FirebaseAuthTypes.User) => {
   firestore()
     .collection('Users')
     .doc(userState.uid)
@@ -37,20 +42,22 @@ const AddUserToFirestore = userState => {
 };
 
 // get info of the user currently signed in
-export function GetCurrentUserInfoFromFirestore() {
-  let userId = auth().currentUser?.uid;
+export const GetCurrentUserInfoFromFirestore: UserInfo = () => {
+  let userId: string | undefined = auth().currentUser?.uid;
   let docRef = firestore().collection('Users').doc(userId);
 
   try {
-    return docRef.get().then(doc => {
+    return docRef.get().then((doc: FirebaseFirestoreTypes.DocumentSnapshot) => {
       if (doc.exists) {
         return {userId: userId, ...doc.data()};
       }
     });
   } catch (error) {
-    Alert.alert('An error occured while attempting to retrieve user info');
+    Alert.alert(
+      'An error occured while attempting to retrieve your info: ' + error,
+    );
   }
-}
+};
 
 /* *********************** CHATROOM RELATED ******************************* */
 
@@ -58,7 +65,7 @@ export function GetCurrentUserInfoFromFirestore() {
 export const GetAllChatrooms = () => firestore().collection('ChatRooms').get();
 
 // Returns the 50 newest messages from the specified chatroom
-export const GetChatroomMessages = chatroomId =>
+export const GetChatroomMessages = (chatroomId: string) =>
   firestore()
     .collection('ChatRooms')
     .doc(chatroomId)
@@ -78,9 +85,9 @@ export const GetChatroomMessagesFromLastVisible = (chatroomId, lastVisible) =>
 
 // Send message to the firestore containing either just text or text + an image
 export const SendMessage = async (
-  user,
-  chatroomId,
-  messageContent,
+  user: UserInfo,
+  chatroomId: string,
+  messageContent: string,
   imageUrl = '',
 ) => {
   try {

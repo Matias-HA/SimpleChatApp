@@ -10,8 +10,9 @@ import BasicText from '../../../shared/components/BasicText';
 
 export const ClickableContainer = styled.TouchableOpacity`
   flex: 1;
-  height: ${Screen.height * 0.11}px;
+  height: ${Screen.height * 0.1}px;
   flex-direction: row;
+  margin-horizontal: 10px;
 `;
 
 export const InfoContainer = styled.View`

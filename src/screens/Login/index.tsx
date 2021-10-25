@@ -1,13 +1,13 @@
 // Libraries
 import React, {useEffect} from 'react';
 import {GoogleSigninButton} from '@react-native-google-signin/google-signin';
-import {useSelector, useDispatch} from 'react-redux';
 
 // Includes
 import {signInGoogle} from '../../shared/redux/auth/actions';
+import {clearErrorMessage} from '../../shared/redux/auth/reducer';
+import {useReduxSelector, useReduxDispatch} from '../../shared/redux/hooks';
 import Colors from '../../shared/constants/colors';
 import Circle from '../../shared/components/Circle';
-import {clearErrorMessage} from '../../shared/redux/auth/reducer';
 
 // Styles
 import {
@@ -28,8 +28,8 @@ import {
  */
 
 const Login = () => {
-  const dispatch = useDispatch();
-  const {errorMessage} = useSelector(state => state.auth);
+  const dispatch = useReduxDispatch();
+  const errorMessage = useReduxSelector(state => state.auth.errorMessage);
 
   // Clear error message after 10 seconds have passed
   useEffect(() => {

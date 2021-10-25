@@ -1,14 +1,17 @@
 // Libraries
 import React, {useState} from 'react';
 import {Keyboard, Alert} from 'react-native';
-import {launchImageLibrary} from 'react-native-image-picker';
+import {
+  ImagePickerResponse,
+  launchImageLibrary,
+} from 'react-native-image-picker';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import storage from '@react-native-firebase/storage';
-import {useSelector} from 'react-redux';
 import 'react-native-get-random-values';
 import {v4 as uuidv4} from 'uuid';
 
 // Includes
+import {useReduxSelector} from '../../../shared/redux/hooks';
 import Colors from '../../../shared/constants/colors';
 import {SendMessage} from '../../../shared/firestore/queries';
 
@@ -27,6 +30,10 @@ import {
   TextInputContainer,
 } from './styles';
 
+interface Props {
+  chatroomId: string;
+}
+
 /**
  * @description
  * This returns an input box that the user can type text into as well as select images to upload along with the message
@@ -34,13 +41,16 @@ import {
  * @param {*} chatroomId - Used to specify the specific chatroom the user is sending messages to
  */
 
-const InputBox = ({chatroomId}) => {
-  const {user} = useSelector(state => state.auth);
-  const [message, setMessage] = useState('');
-  const [image, setImage] = useState();
+const InputBox = ({chatroomId}: Props) => {
+  const [message, setMessage] = useState<string>('');
+  const [image, setImage] = useState<ImagePickerResponse>();
+  const user = useReduxSelector(state => state.auth.user);
 
   // Sends any image and text the user has input
-  const handleSendMessage = async (message, image) => {
+  const handleSendMessage = async (
+    message: string,
+    image: ImagePickerResponse,
+  ) => {
     if (image) {
       UploadImageAndSendMessage(image, message);
     } else {
@@ -53,7 +63,10 @@ const InputBox = ({chatroomId}) => {
   };
 
   // Will upload image to firebase and then send any text the user submitted
-  const UploadImageAndSendMessage = async (image, message) => {
+  const UploadImageAndSendMessage = async (
+    message: string,
+    image: ImagePickerResponse,
+  ) => {
     try {
       const fileExtension = image.fileName?.split('.').pop();
       const imageId = uuidv4();

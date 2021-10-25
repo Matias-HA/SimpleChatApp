@@ -1,6 +1,7 @@
 // Libraries
 import React, {useEffect, useState} from 'react';
 import {FlatList, ActivityIndicator} from 'react-native';
+import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
 
 // Includes
 import ChatMessageListItem from './ChatMessageListItem';
@@ -11,19 +12,29 @@ import {
   GetChatroomMessages,
   GetChatroomMessagesFromLastVisible,
 } from '../../shared/firestore/queries';
+import {ChatRoomMessage} from '../../shared/types';
 
 // Styles
 import {Container, SpinnerContainer} from './styles';
+
+interface Props {
+  key: string;
+  name: string;
+  params: {
+    chatroomID: string;
+    name: string;
+  };
+}
 
 /**
  * @description
  * This screen is where users can send and read messages belonging to a specific chatroom
  */
 
-const ChatRoom = ({route}) => {
+const ChatRoom = ({route}: Props) => {
   const {chatroomID} = route.params;
-  const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [page, setPage] = useState<number>(1);
   const [messages, setMessages] = useChatroomMessages(chatroomID);
 
   // Stop loading once messages have been set
@@ -43,18 +54,21 @@ const ChatRoom = ({route}) => {
       });
 
     // get the next 50 messages starting from the last visible document
-    var nextMessages = await GetChatroomMessagesFromLastVisible(
+    var nextMessagesQuery = await GetChatroomMessagesFromLastVisible(
       chatroomID,
       lastVisible,
     );
 
     // Add the new messages to our current messages
-    nextMessages.get().then(QuerySnapshot => {
-      let newMessages = [];
+    nextMessagesQuery.get().then(QuerySnapshot => {
+      let newMessages: ChatRoomMessage[] = [];
       QuerySnapshot.forEach(doc => {
         newMessages.push(doc.data());
       });
-      setMessages(currentMessages => [...currentMessages, ...newMessages]);
+      setMessages((currentMessages: ChatRoomMessage[]) => [
+        ...currentMessages,
+        ...newMessages,
+      ]);
     });
 
     //Update current page count
@@ -64,7 +78,9 @@ const ChatRoom = ({route}) => {
   const keyExtractor = (item, index) => 'key' + index;
 
   // Each list item represents a message within the chatroom
-  const renderItem = ({item}) => <ChatMessageListItem message={item} />;
+  const renderItem = ({item}: {item: ChatRoomMessage}) => (
+    <ChatMessageListItem message={item} />
+  );
 
   if (loading) {
     return (

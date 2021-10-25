@@ -4,6 +4,7 @@ import auth from '@react-native-firebase/auth';
 
 // Includes
 import {setErrorMessage, signOutUser} from './reducer';
+import type {RootState} from '../store';
 
 /**
  * @Description This file contains the redux auth related ation

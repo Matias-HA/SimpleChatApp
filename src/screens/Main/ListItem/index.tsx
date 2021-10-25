@@ -1,10 +1,12 @@
 // Libraries
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 // Includes
 import Colors from '../../../shared/constants/colors';
 import {ChatRoomData} from '../../../shared/types';
+import {StackParamList} from '../../../navigation';
 
 // Styles
 import {
@@ -15,17 +17,19 @@ import {
   IndicatorIcon,
 } from './styles';
 
+interface Props {
+  chatRoom: ChatRoomData;
+}
+
+type chatrooomScreenProp = StackNavigationProp<StackParamList, 'ChatRoom'>;
+
 /**
  * @description
  * This component displays information about a specific chatroom as well as handling navigation to said chatroom
  */
 
-interface Props {
-  chatRoom: ChatRoomData;
-}
-
 const ListItem = ({chatRoom}: Props) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<chatrooomScreenProp>();
 
   //Navigate to selected chatroom
   const onClick = () => {

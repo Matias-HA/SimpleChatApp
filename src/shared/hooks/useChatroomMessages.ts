@@ -2,7 +2,8 @@
 import {useState, useEffect} from 'react';
 
 // Includes
-import {GetChatroomMessages} from '../../shared/firestore/queries';
+import {GetChatroomMessages} from '../firestore/queries';
+import {ChatRoomMessage} from '../types';
 
 /**
  * @description
@@ -10,12 +11,12 @@ import {GetChatroomMessages} from '../../shared/firestore/queries';
  */
 
 const useChatroomMessages = chatroomID => {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState<ChatRoomMessage[]>([]);
 
   useEffect(() => {
     //Listen for any new messages
     const subscriber = GetChatroomMessages(chatroomID).onSnapshot(snapshot => {
-      let newMessages = [];
+      let newMessages: ChatRoomMessage[] = [];
 
       snapshot.docChanges().forEach(change => {
         if (change.type === 'added') {

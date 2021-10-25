@@ -1,10 +1,20 @@
 // Libraries
 import React from 'react';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import {useDispatch} from 'react-redux';
+
+// Includes
+import {useReduxDispatch} from '../../redux/hooks';
 
 // Styles
 import {ClickableContainer} from './styles';
+
+interface Props {
+  size: number;
+  iconName: string;
+  color: string;
+  onPress: () => void;
+  mirror: boolean;
+}
 
 /**
  * @description
@@ -17,8 +27,8 @@ import {ClickableContainer} from './styles';
  * @param {*} mirror - Determines if the icon should be rotated 180 degrees on the y-axis
  */
 
-const IconBtn = ({size, iconName, color, onPress, mirror = false}) => {
-  const dispatch = useDispatch();
+const IconBtn = ({size, iconName, color, onPress, mirror = false}: Props) => {
+  const dispatch = useReduxDispatch();
 
   return (
     <ClickableContainer mirror={mirror} onPress={() => onPress(dispatch)}>
