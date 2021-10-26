@@ -4,8 +4,14 @@ import styled from 'styled-components/native';
 // Includes
 import Colors from '../../constants/colors';
 
-export const BasicText = styled.Text`
-  color: ${({textColor}) => textColor || Colors.black};
-  font-size: ${({fontSize}) => fontSize || 12}px;
-  font-weight: ${({fontWeight}) => fontWeight || 'normal'};
+interface Props {
+  fontSize: number;
+  textColor: string;
+  fontWeight: string;
+}
+
+export const BasicText = styled.Text<Props>`
+  color: ${(props: Props) => props.textColor || Colors.black};
+  font-size: ${(props: Props) => props.fontSize || 12}px;
+  font-weight: ${(props: Props) => props.fontWeight || 'normal'};
 `;

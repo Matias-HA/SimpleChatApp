@@ -49,12 +49,12 @@ const InputBox = ({chatroomId}: Props) => {
   // Sends any image and text the user has input
   const handleSendMessage = async (
     message: string,
-    image: ImagePickerResponse,
+    image: ImagePickerResponse | undefined,
   ) => {
     if (image) {
-      UploadImageAndSendMessage(image, message);
+      UploadImageAndSendMessage(message, image);
     } else {
-      SendMessage(user, chatroomId, message);
+      SendMessage(chatroomId, message);
     }
 
     // clear message and image
@@ -70,13 +70,19 @@ const InputBox = ({chatroomId}: Props) => {
     try {
       const fileExtension = image.fileName?.split('.').pop();
       const imageId = uuidv4();
+      const imageUri: string | undefined = image.uri;
       const fileName = `${imageId}.${fileExtension}`;
 
       // create bucket storage reference
       const storageRef = storage().ref(`messages/images/${fileName}`);
 
+      // Will not be able to upload if imageUri for some reason is undefined
+      if (imageUri === undefined) {
+        throw new Error('Unexpected error: Missing image uri');
+      }
+
       // uploads file to firebase storage
-      await storageRef.putFile(image.uri).on(
+      await storageRef.putFile(imageUri).on(
         storage.TaskEvent.STATE_CHANGED,
         snapshot => {
           if (snapshot.state === storage.TaskState.SUCCESS) {
@@ -88,22 +94,22 @@ const InputBox = ({chatroomId}: Props) => {
         },
         () => {
           storageRef.getDownloadURL().then(downloadUrl => {
-            console.log('Image available at: ' + downloadUrl);
-
-            SendMessage(user, chatroomId, message, downloadUrl);
+            SendMessage(chatroomId, message, downloadUrl);
           });
         },
       );
-    } catch (error) {
-      Alert.alert(error);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        Alert.alert(error.message);
+      }
     }
   };
 
   // Open image picker for user to select an image they want to send
-  const openImagePicker = () => {
-    launchImageLibrary({mediaType: 'photo'}, res => {
+  const openImagePicker = async () => {
+    await launchImageLibrary({mediaType: 'photo'}, res => {
       if (res.errorCode) {
-        Alert.alert(res.errorMessage);
+        if (res.errorMessage === 'string') Alert.alert(res.errorMessage);
         return;
       }
 
@@ -155,6 +161,7 @@ const InputBox = ({chatroomId}: Props) => {
           color={Colors.primary}
           iconName="image"
           onPress={() => openImagePicker()}
+          mirror={false}
         />
       </InputAreaContainer>
 

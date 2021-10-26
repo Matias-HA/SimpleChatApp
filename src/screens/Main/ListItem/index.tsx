@@ -25,7 +25,7 @@ type chatrooomScreenProp = StackNavigationProp<StackParamList, 'ChatRoom'>;
 
 /**
  * @description
- * This component displays information about a specific chatroom as well as handling navigation to said chatroom
+ * This component displays information about a specific chatroom as well as handling navigation to that chatroom
  */
 
 const ListItem = ({chatRoom}: Props) => {
@@ -34,8 +34,8 @@ const ListItem = ({chatRoom}: Props) => {
   //Navigate to selected chatroom
   const onClick = () => {
     navigation.navigate('ChatRoom', {
-      chatroomID: chatRoom.id,
-      name: chatRoom.data.name,
+      chatroomId: chatRoom.id,
+      chatroomName: chatRoom.data.name,
     });
   };
 

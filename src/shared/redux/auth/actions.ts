@@ -3,15 +3,16 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 
 // Includes
+import {store} from '../store';
+import {authSlice} from './reducer';
 import {setErrorMessage, signOutUser} from './reducer';
-import type {RootState} from '../store';
 
 /**
- * @Description This file contains the redux auth related ation
+ *  This file contains the redux auth related actions
  */
 
 // Will attempt to sign in the user and, if successful, update the user state
-export const signInGoogle = () => async dispatch => {
+export const signInGoogle = async () => {
   try {
     // Get the users ID token
     const {idToken} = await GoogleSignin.signIn();
@@ -21,13 +22,15 @@ export const signInGoogle = () => async dispatch => {
 
     // Sign-in the user with the credential
     await auth().signInWithCredential(googleCredential);
-  } catch (error) {
-    dispatch(setErrorMessage(error.message));
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      store.dispatch(authSlice.actions.setErrorMessage(error.message));
+    }
   }
 };
 
 // If the user is already signed it, skip the sign in process
-export const trySigninSilently = () => async dispatch => {
+export const trySigninSilently = async () => {
   try {
     const {idToken} = await GoogleSignin.signInSilently();
 
@@ -42,12 +45,14 @@ export const trySigninSilently = () => async dispatch => {
 };
 
 // Signs the user out and clears the user state
-export const signout = async dispatch => {
+export const signout = async () => {
   try {
     await auth().signOut();
     await GoogleSignin.signOut();
-    dispatch(signOutUser());
-  } catch (error) {
-    dispatch(setErrorMessage(error.message));
+    store.dispatch(authSlice.actions.signOutUser());
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      store.dispatch(authSlice.actions.setErrorMessage(error.message));
+    }
   }
 };

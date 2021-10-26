@@ -52,6 +52,7 @@ const Login = () => {
             color={Colors.secondary}
             top={0.06}
             left={0.1}
+            mirror={false}
           />
           <Icon
             name="align-left"
@@ -59,6 +60,7 @@ const Login = () => {
             color={'white'}
             top={0.1}
             left={-0.08}
+            mirror={false}
           />
 
           {/* Red Chat Bubble */}
@@ -76,6 +78,7 @@ const Login = () => {
             color={'white'}
             top={0.19}
             left={-0.18}
+            mirror={false}
           />
         </IconContainer>
       </TopContainer>
@@ -84,7 +87,7 @@ const Login = () => {
         {/* Sign In Button*/}
         <GoogleSigninButton
           onPress={() => {
-            dispatch(signInGoogle());
+            signInGoogle();
           }}
         />
 

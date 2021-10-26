@@ -1,5 +1,5 @@
 // Libraries
-import {createSlice, dispatch, PayloadAction} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 // Includes
 import {UserInfo} from '../../types';
@@ -20,20 +20,20 @@ const initialState: AuthState = {
   errorMessage: '',
 };
 
-const authSlice = createSlice({
+export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<UserInfo>) => {
       state.user = action.payload;
     },
-    signOutUser: (state, action) => {
+    signOutUser: (state, action: PayloadAction<void>) => {
       state.user = null;
     },
     setErrorMessage: (state, action: PayloadAction<string>) => {
       state.errorMessage = action.payload;
     },
-    clearErrorMessage: (state, action) => {
+    clearErrorMessage: state => {
       state.errorMessage = '';
     },
   },

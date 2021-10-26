@@ -10,7 +10,7 @@ import {ChatRoomMessage} from '../types';
  * This hook is used to get the most recent messages from the chatroom specified by the chatroomID
  */
 
-const useChatroomMessages = chatroomID => {
+const useChatroomMessages = (chatroomID: string) => {
   const [messages, setMessages] = useState<ChatRoomMessage[]>([]);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const useChatroomMessages = chatroomID => {
 
       snapshot.docChanges().forEach(change => {
         if (change.type === 'added') {
-          newMessages.push(change.doc.data());
+          newMessages.push(change.doc.data() as ChatRoomMessage);
         }
         if (change.type === 'modified') {
           // Logic related to message modification goes here
@@ -38,7 +38,7 @@ const useChatroomMessages = chatroomID => {
     return () => subscriber();
   }, []);
 
-  return [messages, setMessages];
+  return [messages, setMessages] as const;
 };
 
 export default useChatroomMessages;

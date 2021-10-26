@@ -1,11 +1,17 @@
 // Libraries
 import React from 'react';
 import styled from 'styled-components/native';
+import {ImagePickerResponse} from 'react-native-image-picker';
 
 // Includes
 import Colors from '../../../shared/constants/colors';
 import Screen from '../../../shared/constants/screen';
 import IconBtn from '../../../shared/components/IconBtn';
+
+interface Props {
+  message: string;
+  image: ImagePickerResponse | undefined;
+}
 
 export const Container = styled.View`
   width: 100%;
@@ -59,10 +65,10 @@ export const ChatTextInput = styled.TextInput`
 
 export const SelectImageFromGalleryBtn = styled(IconBtn)``;
 
-export const SendBtnContainer = styled.View`
+export const SendBtnContainer = styled.View<Props>`
   align-items: center;
   justify-content: flex-end;
-  opacity: ${({message, image}) => (message || image ? 1 : 0.5)};
+  opacity: ${(props: Props) => (props.message || props.image ? 1 : 0.5)};
 `;
 
 export const SendMessageBtn = styled.TouchableOpacity`

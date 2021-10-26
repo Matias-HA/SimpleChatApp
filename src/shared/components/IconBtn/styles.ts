@@ -1,6 +1,12 @@
 // Libraries
+import React from 'react';
 import styled from 'styled-components/native';
 
-export const ClickableContainer = styled.TouchableOpacity`
-  transform: ${({mirror}) => (mirror ? `rotate(180deg)` : `rotate(0deg)`)};
+interface Props {
+  onPress: () => void;
+  mirror: boolean;
+}
+
+export const ClickableContainer = styled.TouchableOpacity<Props>`
+  transform: ${props => (props.mirror ? `rotate(180deg)` : `rotate(0deg)`)};
 `;

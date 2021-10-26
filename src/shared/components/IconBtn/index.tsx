@@ -3,7 +3,6 @@ import React from 'react';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 // Includes
-import {useReduxDispatch} from '../../redux/hooks';
 
 // Styles
 import {ClickableContainer} from './styles';
@@ -12,7 +11,7 @@ interface Props {
   size: number;
   iconName: string;
   color: string;
-  onPress: () => void;
+  onPress: () => {};
   mirror: boolean;
 }
 
@@ -28,10 +27,8 @@ interface Props {
  */
 
 const IconBtn = ({size, iconName, color, onPress, mirror = false}: Props) => {
-  const dispatch = useReduxDispatch();
-
   return (
-    <ClickableContainer mirror={mirror} onPress={() => onPress(dispatch)}>
+    <ClickableContainer mirror={mirror} onPress={() => onPress()}>
       <FontAwesomeIcon name={iconName} size={size} color={color} />
     </ClickableContainer>
   );

@@ -8,6 +8,12 @@ import Colors from '../../shared/constants/colors';
 import Screen from '../../shared/constants/screen';
 import BasicText from '../../shared/components/BasicText';
 
+interface Props {
+  top: number;
+  left: number;
+  mirror: boolean;
+}
+
 export const Container = styled.View`
   flex: 1;
 `;
@@ -39,11 +45,12 @@ export const ErrorMessageContainer = styled.View`
   justify-content: flex-start;
 `;
 
-export const Icon = styled(FontAwesomeIcon)`
+export const Icon = styled(FontAwesomeIcon)<Props>`
   position: relative;
-  top: ${({top}) => Screen.height * top}px;
-  left: ${({left}) => Screen.width * left}px;
-  transform: ${({mirror}) => (mirror ? `rotateY(180deg)` : `rotateY(0deg)`)};
+  top: ${(props: Props) => Screen.height * props.top}px;
+  left: ${(props: Props) => Screen.width * props.left}px;
+  transform: ${(props: Props) =>
+    props.mirror ? `rotateY(180deg)` : `rotateY(0deg)`};
 `;
 
 export const TextContainer = styled.View`

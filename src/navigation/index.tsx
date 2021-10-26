@@ -1,5 +1,6 @@
 // Libraries
 import React, {useEffect, useState} from 'react';
+import {Alert} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator, StackScreenProps} from '@react-navigation/stack';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
@@ -8,10 +9,10 @@ import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
 
 // Includes
 import Colors from '../shared/constants/colors';
-import {setUser} from '../shared/redux/auth/reducer';
+import {setErrorMessage, setUser} from '../shared/redux/auth/reducer';
 import {signout} from '../shared/redux/auth/actions';
 import {useReduxSelector, useReduxDispatch} from '../shared/redux/hooks';
-import {UserInfo} from '../shared/types';
+import {ChatRoomData, UserInfo} from '../shared/types';
 import {
   AddUserIfNotInFirestore,
   GetCurrentUserInfoFromFirestore,
@@ -28,7 +29,7 @@ import {LogoutBtnContainer} from './styles';
 export type StackParamList = {
   Login: undefined;
   Main: undefined;
-  ChatRoom: {chatroomID: number; name: string} | undefined;
+  ChatRoom: {chatroomId: string; chatroomName: string};
 };
 
 const Stack = createStackNavigator<StackParamList>();
@@ -50,23 +51,39 @@ const Navigation = () => {
       webClientId: Auth.webClientId,
     });
 
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    const subscriber = auth().onAuthStateChanged(firebaseUser =>
+      handleAuthStateChanged(firebaseUser),
+    );
     return subscriber; // unsubscribe on unmount
   }, []);
 
   // Handle user auth state changes
-  const onAuthStateChanged = async (user: FirebaseAuthTypes.User) => {
-    // If the user doesn't exist in the firestore, they are added
-    if (user) {
-      AddUserIfNotInFirestore(user);
+  const handleAuthStateChanged = async (
+    user: FirebaseAuthTypes.User | null,
+  ) => {
+    try {
+      if (user) {
+        // If the user doesn't exist in the firestore, they are added
+        AddUserIfNotInFirestore(user);
 
-      // User is saved to the redux store
-      let firestoreUserInfo: UserInfo = await GetCurrentUserInfoFromFirestore();
-      dispatch(setUser(firestoreUserInfo));
+        let firestoreUserInfo: UserInfo | undefined =
+          await GetCurrentUserInfoFromFirestore();
+
+        if (firestoreUserInfo === undefined) {
+          throw new Error('Unexpected error: User from firestore is null');
+        }
+
+        // User is saved to the redux store
+        dispatch(setUser(firestoreUserInfo));
+      }
+
+      // Firebase connection has been established and initializing is now done
+      if (initializing) setInitializing(false);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        Alert.alert(error.message);
+      }
     }
-
-    // Firebase connection has been established and initializing is now done
-    if (initializing) setInitializing(false);
   };
 
   /* the onAuthStateChanged listener is asynchronous and will trigger an initial state once a connection
@@ -92,7 +109,7 @@ const LoginStack = () => {
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name="Signin" component={Login} />
+      <Stack.Screen name="Login" component={Login} />
     </Stack.Navigator>
   );
 };
@@ -138,7 +155,7 @@ const MainStack = () => {
         name="ChatRoom"
         component={ChatRoom}
         options={({route}) => ({
-          title: route.params.name,
+          title: route.params.chatroomName,
           headerTintColor: Colors.white,
         })}
       />

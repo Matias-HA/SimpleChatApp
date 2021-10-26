@@ -1,13 +1,13 @@
 // The firestore chatroom object
 export type UserInfo = {
-  userId: string;
-  name: string;
-  avatar: string;
+  userId: string | undefined;
+  name: string | undefined;
+  avatar: string | undefined;
 };
 
 // The firestore chatroom object
 export type ChatRoomData = {
-  id: number;
+  id: string;
   data: {
     name: string;
     description: string;

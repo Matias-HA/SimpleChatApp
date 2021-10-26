@@ -7,6 +7,7 @@ import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import moment from 'moment';
 
 // Includes
+import {store} from '../../redux/store';
 import {UserInfo} from '../../types';
 
 /* *********************** USER RELATED ******************************* */
@@ -31,7 +32,7 @@ const AddUserToFirestore = (userState: FirebaseAuthTypes.User) => {
     .doc(userState.uid)
     .set({
       name: userState.displayName,
-      avatar: `https://picsum.photos/300/300?random&t=${new Date().getTime()}`,
+      avatar: userState.photoURL,
     })
     .then(() => {
       // Success related logic goes here
@@ -42,19 +43,31 @@ const AddUserToFirestore = (userState: FirebaseAuthTypes.User) => {
 };
 
 // get info of the user currently signed in
-export const GetCurrentUserInfoFromFirestore: UserInfo = () => {
+export const GetCurrentUserInfoFromFirestore = async (): Promise<
+  UserInfo | undefined
+> => {
   let userId: string | undefined = auth().currentUser?.uid;
-  let docRef = firestore().collection('Users').doc(userId);
+  let docRef = firestore().collection('Users').doc(userId).get();
 
+  console.log('sadas');
   try {
-    return docRef.get().then((doc: FirebaseFirestoreTypes.DocumentSnapshot) => {
-      if (doc.exists) {
-        return {userId: userId, ...doc.data()};
-      }
-    });
+    const userInfo = await docRef.then(
+      (doc: FirebaseFirestoreTypes.DocumentSnapshot) => {
+        if (doc.exists) {
+          return {
+            userId: userId,
+            name: doc.data()?.name,
+            avatar: doc.data()?.avatar,
+          } as UserInfo;
+        }
+      },
+    );
+
+    return userInfo;
   } catch (error) {
     Alert.alert(
-      'An error occured while attempting to retrieve your info: ' + error,
+      'An error occured while attempting to retrieve user info from firestore: ' +
+        error,
     );
   }
 };
@@ -74,7 +87,10 @@ export const GetChatroomMessages = (chatroomId: string) =>
     .limit(50);
 
 // Returns the next 50 messages starting from last visible message
-export const GetChatroomMessagesFromLastVisible = (chatroomId, lastVisible) =>
+export const GetChatroomMessagesFromLastVisible = (
+  chatroomId: string,
+  lastVisible: FirebaseFirestoreTypes.DocumentData,
+) =>
   firestore()
     .collection('ChatRooms')
     .doc(chatroomId)
@@ -85,12 +101,17 @@ export const GetChatroomMessagesFromLastVisible = (chatroomId, lastVisible) =>
 
 // Send message to the firestore containing either just text or text + an image
 export const SendMessage = async (
-  user: UserInfo,
   chatroomId: string,
   messageContent: string,
   imageUrl = '',
 ) => {
   try {
+    const state = store.getState();
+    const user = state.auth.user;
+
+    if (user === null) {
+      throw new Error('Unexpected error: user is null');
+    }
     firestore()
       .collection('ChatRooms')
       .doc(chatroomId)

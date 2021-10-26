@@ -20,9 +20,11 @@ const useSortedChatrooms = () => {
 
   // Chatrooms are sorted by which has the most recent message.
   // Sorted: Newest -> Oldest
-  const SortChatroomsByNewestMessage = chatrooms => {
+  const SortChatroomsByNewestMessage = (chatrooms: ChatRoomData[]) => {
     const sortedChatrooms = chatrooms?.sort((chatroomA, chatroomB) =>
-      chatroomA.lastMessageCreatedAt < chatroomB.lastMessageCreatedAt ? 1 : -1,
+      chatroomA.data.lastMessageCreatedAt < chatroomB.data.lastMessageCreatedAt
+        ? 1
+        : -1,
     );
 
     return sortedChatrooms;
@@ -30,14 +32,14 @@ const useSortedChatrooms = () => {
 
   // Get chatrooms from the firestore
   const getChatrooms = async () => {
-    const collections = await GetAllChatrooms();
     let rooms: ChatRoomData[] = [];
-
-    // loop through each collection and add every chatroom to the rooms array
-    collections.forEach(documentSnapshot => {
-      rooms.push({
-        id: documentSnapshot.id,
-        data: documentSnapshot.data(),
+    await GetAllChatrooms().then(elements => {
+      // loop through each collection and add every chatroom to the rooms array
+      elements.forEach(documentSnapshot => {
+        rooms.push({
+          id: documentSnapshot.id,
+          data: documentSnapshot.data() as ChatRoomData['data'],
+        });
       });
     });
 
@@ -45,7 +47,7 @@ const useSortedChatrooms = () => {
     setChatrooms(SortChatroomsByNewestMessage(rooms));
   };
 
-  return [chatrooms, getChatrooms];
+  return [chatrooms, getChatrooms] as const;
 };
 
 export default useSortedChatrooms;

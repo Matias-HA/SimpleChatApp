@@ -7,7 +7,11 @@ import Screen from '../../../shared/constants/screen';
 import Colors from '../../../shared/constants/colors';
 import BasicText from '../../../shared/components/BasicText';
 
-export const Container = styled.View`
+interface Props {
+  isMyMessage: boolean;
+}
+
+export const Container = styled.View<Props>`
   align-self: ${props => (props.isMyMessage ? 'flex-end' : 'flex-start')}
   background-color: ${props =>
     props.isMyMessage ? Colors.primary : Colors.white};
