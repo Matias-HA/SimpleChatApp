@@ -3,5 +3,13 @@
  android:orientation="vertical"
  android:layout_width="match_parent"
  android:layout_height="match_parent"
- android:background="@drawable/background_splash"
-/>
+ android:opacity="opaque"
+ android:background="@color/white"
+ android:gravity="center">
+
+ <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="center"
+        android:src="@drawable/splash" />
+</LinearLayout>

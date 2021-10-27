@@ -1,7 +1,7 @@
 // Libraries
 import React from 'react';
 import styled from 'styled-components/native';
-import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
+import {scale} from 'react-native-size-matters';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 // Includes
@@ -12,7 +12,7 @@ import BasicText from '../../shared/components/BasicText';
 interface Props {
   top: number;
   left: number;
-  fontSize: number;
+  fontSize?: number;
   mirror: boolean;
 }
 
