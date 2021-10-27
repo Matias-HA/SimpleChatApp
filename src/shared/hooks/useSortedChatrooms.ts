@@ -34,7 +34,7 @@ const useSortedChatrooms = () => {
   const getChatrooms = async () => {
     let rooms: ChatRoomData[] = [];
     await GetAllChatrooms().then(elements => {
-      // loop through each collection and add every chatroom to the rooms array
+      // loop through each element and add every chatroom to the rooms array
       elements.forEach(documentSnapshot => {
         rooms.push({
           id: documentSnapshot.id,

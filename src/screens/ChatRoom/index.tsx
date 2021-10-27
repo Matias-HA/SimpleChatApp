@@ -2,29 +2,24 @@
 import React, {useEffect, useState} from 'react';
 import {FlatList, ActivityIndicator} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
-import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
 
 // Includes
 import ChatMessageListItem from './ChatMessageListItem';
 import Colors from '../../shared/constants/colors';
 import InputBox from './InputBox';
+import {ChatRoomMessage, StackParamList} from '../../shared/types';
 import useChatroomMessages from '../../shared/hooks/useChatroomMessages';
 import {
   GetChatroomMessages,
   GetChatroomMessagesFromLastVisible,
 } from '../../shared/firestore/queries';
-import {
-  ChatRoomData,
-  ChatRoomMessage,
-  StackParamList,
-} from '../../shared/types';
 
 // Styles
 import {Container, SpinnerContainer} from './styles';
 
 /**
  * @description
- * This screen is where users can send and read messages belonging to a specific chatroom
+ * This is the screen where users can send and read messages belonging to a specific chatroom
  */
 
 const ChatRoom = ({route}: StackScreenProps<StackParamList, 'ChatRoom'>) => {

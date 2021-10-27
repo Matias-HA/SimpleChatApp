@@ -5,7 +5,7 @@ import {
   ImagePickerResponse,
   launchImageLibrary,
 } from 'react-native-image-picker';
-import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
+import {scale} from 'react-native-size-matters';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import storage from '@react-native-firebase/storage';
 import 'react-native-get-random-values';

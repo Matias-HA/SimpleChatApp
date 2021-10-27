@@ -4,22 +4,21 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 // Includes
 import {UserInfo} from '../../types';
 
-/**
- * This file contains the auth related reducers as well as the initial auth state
- */
+// This file contains the auth related reducers as well as the initial auth state
 
-// Define type for the auth state
+// Defines type for the auth state
 interface AuthState {
   user: UserInfo | null;
   errorMessage: string;
 }
 
-// Define the initial state for this type
+// Define the initial state for auth type
 const initialState: AuthState = {
   user: null,
   errorMessage: '',
 };
 
+// Create auth slice using the initial auth state
 export const authSlice = createSlice({
   name: 'auth',
   initialState,

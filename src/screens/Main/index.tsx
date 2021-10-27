@@ -1,11 +1,6 @@
 // Libraries
 import React, {useEffect, useState, useCallback} from 'react';
-import {
-  FlatList,
-  ActivityIndicator,
-  RefreshControl,
-  ListRenderItemInfo,
-} from 'react-native';
+import {FlatList, ActivityIndicator, RefreshControl} from 'react-native';
 
 // Includes
 import Colors from '../../shared/constants/colors';

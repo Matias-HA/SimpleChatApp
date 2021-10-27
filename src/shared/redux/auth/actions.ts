@@ -5,11 +5,6 @@ import auth from '@react-native-firebase/auth';
 // Includes
 import {store} from '../store';
 import {authSlice} from './reducer';
-import {setErrorMessage, signOutUser} from './reducer';
-
-/**
- *  This file contains the redux auth related actions
- */
 
 // Will attempt to sign in the user and, if successful, update the user state
 export const signInGoogle = async () => {
@@ -41,7 +36,10 @@ export const trySigninSilently = async () => {
       // Sign-in the user with the credential
       await auth().signInWithCredential(googleCredential);
     }
-  } catch (error) {}
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      store.dispatch(authSlice.actions.setErrorMessage(error.message));
+    }
 };
 
 // Signs the user out and clears the user state

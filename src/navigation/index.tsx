@@ -7,6 +7,7 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 // Includes
 import Colors from '../shared/constants/colors';
+import Auth from '../shared/constants/auth';
 import {setUser} from '../shared/redux/auth/reducer';
 import {signout} from '../shared/redux/auth/actions';
 import {useReduxSelector, useReduxDispatch} from '../shared/redux/hooks';
@@ -15,11 +16,10 @@ import {
   AddUserIfNotInFirestore,
   GetCurrentUserInfoFromFirestore,
 } from '../shared/firestore/queries';
-import Auth from '../shared/constants/auth';
+import IconBtn from '../shared/components/IconBtn';
 import Login from '../screens/Login';
 import Main from '../screens/Main';
 import ChatRoom from '../screens/ChatRoom';
-import IconBtn from '../shared/components/IconBtn';
 
 // Styles
 import {NavContainer, LogoutBtnContainer} from './styles';
@@ -28,10 +28,9 @@ const Stack = createStackNavigator<StackParamList>();
 
 /**
  * @Description
- * This component handles everything related to navigation
+ * Component that returns the relevant navigation stack to the user based on their current auth status
  */
 
-// The component that returns the relevant stack to the user based on their current auth status
 const Navigation = () => {
   const [initializing, setInitializing] = useState<boolean>(true); // Set an initializing state whilst Firebase connects
   const dispatch = useReduxDispatch();

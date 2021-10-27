@@ -1,6 +1,5 @@
 // Libraries
 import React, {useEffect} from 'react';
-import {SafeAreaView} from 'react-native';
 import {Provider} from 'react-redux';
 import SplashScreen from 'react-native-splash-screen';
 
