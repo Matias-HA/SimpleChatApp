@@ -42,8 +42,10 @@ const ListItem = ({chatRoom}: Props) => {
   return (
     <ClickableContainer onPress={onClick}>
       <InfoContainer>
-        <Name>{chatRoom.data.name}</Name>
-        <Description numberOfLines={2}>{chatRoom.data.description}</Description>
+        <Name fontSize={15}>{chatRoom.data.name}</Name>
+        <Description fontSize={15} numberOfLines={2}>
+          {chatRoom.data.description}
+        </Description>
       </InfoContainer>
       <IndicatorIcon name="chevron-right" size={22} color={Colors.primary} />
     </ClickableContainer>

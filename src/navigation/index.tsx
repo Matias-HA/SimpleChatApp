@@ -24,7 +24,7 @@ import ChatRoom from '../screens/ChatRoom';
 import IconBtn from '../shared/components/IconBtn';
 
 // Styles
-import {LogoutBtnContainer} from './styles';
+import {NavContainer, LogoutBtnContainer} from './styles';
 
 export type StackParamList = {
   Login: undefined;
@@ -93,12 +93,12 @@ const Navigation = () => {
   if (initializing) return null;
 
   return (
-    <NavigationContainer>
+    <NavContainer>
       {/*
        * If the user has not yet signed in, show the login screen
        */}
       {!user ? LoginStack() : MainStack()}
-    </NavigationContainer>
+    </NavContainer>
   );
 };
 

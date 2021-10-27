@@ -71,18 +71,18 @@ const Main = () => {
         refreshControl={refreshControl()}
       />
       <Circle
-        height={0.6}
+        height={400}
         color={Colors.primary}
         elevation={14}
-        top={0.85}
-        right={-0.3}
+        top={550}
+        right={-100}
       />
       <Circle
-        height={0.4}
+        height={500}
         color={Colors.secondary}
         elevation={15}
-        top={0.83}
-        right={0.55}
+        top={530}
+        right={80}
       />
     </ListContainer>
   );

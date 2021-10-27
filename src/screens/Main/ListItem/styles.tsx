@@ -24,12 +24,10 @@ export const InfoContainer = styled.View`
 
 export const Name = styled(props => <BasicText {...props} />)`
   font-weight: bold;
-  font-size: 16px;
   color: ${Colors.primary};
 `;
 
 export const Description = styled(props => <BasicText {...props} />)`
-  font-size: 14px;
   color: ${Colors.black};
   opacity: 0.5;
 `;

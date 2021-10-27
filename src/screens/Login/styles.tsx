@@ -1,6 +1,7 @@
 // Libraries
 import React from 'react';
 import styled from 'styled-components/native';
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 // Includes
@@ -11,6 +12,7 @@ import BasicText from '../../shared/components/BasicText';
 interface Props {
   top: number;
   left: number;
+  fontSize: number;
   mirror: boolean;
 }
 
@@ -26,7 +28,6 @@ export const TopContainer = styled.View`
 
 export const SignInMessage = styled(props => <BasicText {...props} />)`
   color: ${Colors.primary};
-  font-size: 26px;
   font-weight: bold;
 `;
 
@@ -47,8 +48,8 @@ export const ErrorMessageContainer = styled.View`
 
 export const Icon = styled(FontAwesomeIcon)<Props>`
   position: relative;
-  top: ${(props: Props) => Screen.height * props.top}px;
-  left: ${(props: Props) => Screen.width * props.left}px;
+  top: ${(props: Props) => scale(props.top)}px;
+  left: ${(props: Props) => scale(props.left)}px;
   transform: ${(props: Props) =>
     props.mirror ? `rotateY(180deg)` : `rotateY(0deg)`};
 `;

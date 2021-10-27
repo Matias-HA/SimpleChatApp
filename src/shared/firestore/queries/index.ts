@@ -49,7 +49,6 @@ export const GetCurrentUserInfoFromFirestore = async (): Promise<
   let userId: string | undefined = auth().currentUser?.uid;
   let docRef = firestore().collection('Users').doc(userId).get();
 
-  console.log('sadas');
   try {
     const userInfo = await docRef.then(
       (doc: FirebaseFirestoreTypes.DocumentSnapshot) => {

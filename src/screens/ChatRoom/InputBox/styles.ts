@@ -1,6 +1,7 @@
 // Libraries
 import React from 'react';
 import styled from 'styled-components/native';
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import {ImagePickerResponse} from 'react-native-image-picker';
 
 // Includes
@@ -17,22 +18,21 @@ export const Container = styled.View`
   width: 100%;
   flex-direction: row;
   justify-content: space-evenly;
-  margin-bottom: 10px;
+  margin-bottom: ${verticalScale(15)}px;
 `;
 
 export const InputAreaContainer = styled.View`
-  width: ${Screen.width * 0.8}px;
+  width: ${scale(270)}px;
   flex-direction: row;
   background-color: white;
   border-radius: 40px;
   justify-content: flex-end;
-  align-items: flex-end;
-  padding-bottom: ${Screen.height * 0.017}px;
-  padding-right: 10px;
+  align-items: center;
+  padding-right: ${scale(10)}px;
 `;
 
 export const TextInputContainer = styled.View`
-  width: 75%;
+  width: ${scale(200)}px;
 `;
 
 export const ImageContainer = styled.View`
@@ -58,8 +58,8 @@ export const CancelSelectedImageBtn = styled.TouchableOpacity`
 `;
 
 export const ChatTextInput = styled.TextInput`
-  font-size: 17px;
-  margin-horizontal: 5px;
+  font-size: ${scale(16)}px;
+  margin-horizontal: ${scale(5)}px;
   padding: 0px;
 `;
 
@@ -75,7 +75,7 @@ export const SendMessageBtn = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
   background-color: ${Colors.primary};
-  border-radius: ${Screen.width * 0.07}px;
-  width: ${Screen.width * 0.15}px;
-  height: ${Screen.width * 0.15}px;
+  border-radius: ${scale(50) / 2}px;
+  width: ${scale(50)}px;
+  height: ${scale(50)}px;
 `;

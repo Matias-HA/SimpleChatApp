@@ -5,6 +5,7 @@ import {
   ImagePickerResponse,
   launchImageLibrary,
 } from 'react-native-image-picker';
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import storage from '@react-native-firebase/storage';
 import 'react-native-get-random-values';
@@ -122,7 +123,11 @@ const InputBox = ({chatroomId}: Props) => {
       {/* InputAreaContainer contains Comment Icon, Input Field and Image Select Button */}
       <InputAreaContainer>
         <IconContainer>
-          <FontAwesomeIcon name="comment" size={26} color={Colors.secondary} />
+          <FontAwesomeIcon
+            name="comment"
+            size={scale(24)}
+            color={Colors.secondary}
+          />
         </IconContainer>
 
         <TextInputContainer>
@@ -136,7 +141,7 @@ const InputBox = ({chatroomId}: Props) => {
                 }}>
                 <FontAwesomeIcon
                   name="close"
-                  size={26}
+                  size={scale(24)}
                   color={Colors.primary}
                 />
               </CancelSelectedImageBtn>
@@ -157,7 +162,7 @@ const InputBox = ({chatroomId}: Props) => {
 
         {/* Select Image */}
         <SelectImageFromGalleryBtn
-          size={26}
+          size={scale(22)}
           color={Colors.primary}
           iconName="image"
           onPress={() => openImagePicker()}
@@ -173,7 +178,7 @@ const InputBox = ({chatroomId}: Props) => {
             Keyboard.dismiss();
           }}
           disabled={message || image ? false : true}>
-          <FontAwesomeIcon name="send" size={26} color="white" />
+          <FontAwesomeIcon name="send" size={scale(22)} color="white" />
         </SendMessageBtn>
       </SendBtnContainer>
     </Container>

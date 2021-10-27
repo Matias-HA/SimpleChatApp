@@ -38,7 +38,7 @@ const ChatMessageListItem = ({message}: Props) => {
         {!isMyMessage && (
           <UserInfoContainer>
             <UserAvatar source={{uri: message.avatar}} />
-            <UserName>{message.name}</UserName>
+            <UserName fontSize={13}>{message.name}</UserName>
           </UserInfoContainer>
         )}
 

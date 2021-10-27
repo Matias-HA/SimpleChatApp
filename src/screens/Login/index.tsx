@@ -1,6 +1,7 @@
 // Libraries
 import React, {useEffect} from 'react';
 import {GoogleSigninButton} from '@react-native-google-signin/google-signin';
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 
 // Includes
 import {signInGoogle} from '../../shared/redux/auth/actions';
@@ -43,41 +44,41 @@ const Login = () => {
   return (
     <Container>
       <TopContainer>
-        <SignInMessage>Sign in to start chatting</SignInMessage>
+        <SignInMessage fontSize={20}>Sign in to start chatting</SignInMessage>
         <IconContainer>
           {/* Pink Chat Bubble */}
           <Icon
             name="comment"
-            size={90}
+            size={scale(80)}
             color={Colors.secondary}
-            top={0.06}
-            left={0.1}
+            top={10}
+            left={30}
             mirror={false}
           />
           <Icon
             name="align-left"
-            size={40}
+            size={scale(37)}
             color={'white'}
-            top={0.1}
-            left={-0.08}
+            top={33}
+            left={-27}
             mirror={false}
           />
 
           {/* Red Chat Bubble */}
           <Icon
             name="comment"
-            size={90}
+            size={scale(80)}
             color={Colors.primary}
-            top={0.15}
-            left={0}
+            top={50}
+            left={10}
             mirror={true}
           />
           <Icon
             name="align-left"
-            size={40}
+            size={scale(38)}
             color={'white'}
-            top={0.19}
-            left={-0.18}
+            top={70}
+            left={-48}
             mirror={false}
           />
         </IconContainer>
@@ -103,32 +104,32 @@ const Login = () => {
 
       {/* Circles */}
       <Circle
-        height={0.6}
+        height={300}
         color={Colors.primary}
         elevation={14}
-        top={-0.45}
-        right={-0.4}
+        top={-220}
+        right={-70}
       />
       <Circle
-        height={0.4}
+        height={400}
         color={Colors.secondary}
         elevation={15}
-        top={-0.3}
-        right={0.5}
+        top={-310}
+        right={120}
       />
       <Circle
-        height={0.6}
+        height={500}
         color={Colors.secondary}
         elevation={14}
-        top={0.92}
-        right={-0.4}
+        top={580}
+        right={-110}
       />
       <Circle
-        height={0.4}
+        height={400}
         color={Colors.primary}
         elevation={15}
-        top={0.9}
-        right={0.55}
+        top={600}
+        right={130}
       />
     </Container>
   );

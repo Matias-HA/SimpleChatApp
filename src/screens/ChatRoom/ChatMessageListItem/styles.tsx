@@ -46,7 +46,6 @@ export const MessageImage = styled.Image`
 export const UserName = styled(props => <BasicText {...props} />)`
   align-self: center;
   font-weight: bold;
-  font-size: 14px;
   color: ${Colors.primary};
 `;
 
