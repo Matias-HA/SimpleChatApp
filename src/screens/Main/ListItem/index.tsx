@@ -5,8 +5,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 
 // Includes
 import Colors from '../../../shared/constants/colors';
-import {ChatRoomData} from '../../../shared/types';
-import {StackParamList} from '../../../navigation';
+import {ChatRoomData, StackParamList} from '../../../shared/types';
 
 // Styles
 import {

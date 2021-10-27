@@ -1,18 +1,16 @@
 // Libraries
 import React, {useEffect, useState} from 'react';
 import {Alert} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator, StackScreenProps} from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
 
 // Includes
 import Colors from '../shared/constants/colors';
-import {setErrorMessage, setUser} from '../shared/redux/auth/reducer';
+import {setUser} from '../shared/redux/auth/reducer';
 import {signout} from '../shared/redux/auth/actions';
 import {useReduxSelector, useReduxDispatch} from '../shared/redux/hooks';
-import {ChatRoomData, UserInfo} from '../shared/types';
+import {UserInfo, StackParamList} from '../shared/types';
 import {
   AddUserIfNotInFirestore,
   GetCurrentUserInfoFromFirestore,
@@ -25,12 +23,6 @@ import IconBtn from '../shared/components/IconBtn';
 
 // Styles
 import {NavContainer, LogoutBtnContainer} from './styles';
-
-export type StackParamList = {
-  Login: undefined;
-  Main: undefined;
-  ChatRoom: {chatroomId: string; chatroomName: string};
-};
 
 const Stack = createStackNavigator<StackParamList>();
 

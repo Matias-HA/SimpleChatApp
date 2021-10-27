@@ -13,8 +13,11 @@ import {
   GetChatroomMessages,
   GetChatroomMessagesFromLastVisible,
 } from '../../shared/firestore/queries';
-import {ChatRoomData, ChatRoomMessage} from '../../shared/types';
-import {StackParamList} from '../../navigation';
+import {
+  ChatRoomData,
+  ChatRoomMessage,
+  StackParamList,
+} from '../../shared/types';
 
 // Styles
 import {Container, SpinnerContainer} from './styles';

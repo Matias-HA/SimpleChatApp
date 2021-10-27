@@ -1,11 +1,24 @@
-// The firestore chatroom object
+/**
+ * @description The navigation stack params
+ */
+export type StackParamList = {
+  Login: undefined;
+  Main: undefined;
+  ChatRoom: {chatroomId: string; chatroomName: string};
+};
+
+/**
+ * @description The firestore user object
+ */
 export type UserInfo = {
   userId: string | undefined;
   name: string | undefined;
   avatar: string | undefined;
 };
 
-// The firestore chatroom object
+/**
+ * @description The firestore chatroom object
+ */
 export type ChatRoomData = {
   id: string;
   data: {
@@ -15,7 +28,9 @@ export type ChatRoomData = {
   };
 };
 
-// The firestore message object
+/**
+ * @description The firestore chatroom message object
+ */
 export type ChatRoomMessage = {
   avatar: string;
   content: string;
