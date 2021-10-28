@@ -61,7 +61,7 @@ const Navigation = () => {
           await GetCurrentUserInfoFromFirestore();
 
         if (firestoreUserInfo === undefined) {
-          throw new Error('Unexpected error: User from firestore is null');
+          throw new Error('Failed to retrieve user information');
         }
 
         // User is saved to the redux store

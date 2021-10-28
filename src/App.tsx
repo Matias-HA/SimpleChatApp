@@ -6,6 +6,7 @@ import SplashScreen from 'react-native-splash-screen';
 // Includes
 import Navigation from './navigation';
 import {store} from './shared/redux/store';
+import ErrorHandler from './shared/components/ErrorHandler';
 
 /**
  * @Description This is the top level component of the app
@@ -18,7 +19,9 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <Navigation />
+      <ErrorHandler>
+        <Navigation />
+      </ErrorHandler>
     </Provider>
   );
 };

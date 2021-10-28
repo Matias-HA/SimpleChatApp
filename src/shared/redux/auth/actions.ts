@@ -40,6 +40,7 @@ export const trySigninSilently = async () => {
     if (error instanceof Error) {
       store.dispatch(authSlice.actions.setErrorMessage(error.message));
     }
+  }
 };
 
 // Signs the user out and clears the user state
