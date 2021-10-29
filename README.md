@@ -127,7 +127,7 @@ To get a local copy up and running follow these steps.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/Matias-HA/SimpleChatApp.git
    ```
 2. Install NPM packages
    ```sh
