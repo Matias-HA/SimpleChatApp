@@ -73,7 +73,7 @@
 
 ### Short Description
 
-This is a simple chat app. The app consists of three screens. a login screen, where the user can sign in using their google account. The main screen gives an overview of each chat room the user can enter. The Third screen is where the user can type to chat with other users.
+This is a simple chat app. The app consists of three screens. a login screen, where the user can sign in using their google account. After signing in the user will be brought to the main screen, which gives an overview of each chat room the user can enter. After selecting a chat room the user will then be brought to the last screen, in which the user can chat with other people.
 
 <b>Note that this app currently only works on android devices since I'm lacking the necessary development tools to build and test on iOS</b>
 
