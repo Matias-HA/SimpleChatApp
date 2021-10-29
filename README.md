@@ -27,7 +27,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <h3 align="center">Simple Chat App</h3>
+  <h1 align="center">Simple Chat App</h1>
 </p>
 
 <!-- TABLE OF CONTENTS -->
@@ -37,7 +37,9 @@
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
-        <li><a href="#description">Description</a></li>
+        <li><a href="#app-showcase">App Showcase</a></li>
+        <li><a href="#short-description">Short Description</a></li>
+        <li><a href="#features-overview">Features Overview</a></li>
         <li><a href="#folder-structure">Folder Structure</a></li>
         <li><a href="#main-libraries-used">Main Libraries Used</a></li>
       </ul>
@@ -59,9 +61,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-### Description
-
-This is a simple chat app. The app consists of three screens. a login screen, where the user can sign in using their google account. The main screen gives an overview of each chatroom the user can enter. The Third screen is where the user can type to chat with other users.
+### App Showcase
 
 <div align="center">
   <img src="https://user-images.githubusercontent.com/84104310/139360161-a9f5bb80-35f1-4f6b-bde5-74c2650b10f7.jpg" width="18%"></img>
@@ -71,11 +71,23 @@ This is a simple chat app. The app consists of three screens. a login screen, wh
   <img src="https://user-images.githubusercontent.com/84104310/139361640-ac08160d-2e12-4981-a2cd-a123e14c30e4.jpg" width="18%"></img>
 </div>
 
-This app currently only works on android devices since I'm lacking the necessary development tools to build for iOS
+### Short Description
+
+This is a simple chat app. The app consists of three screens. a login screen, where the user can sign in using their google account. The main screen gives an overview of each chat room the user can enter. The Third screen is where the user can type to chat with other users.
+
+<b>Note that this app currently only works on android devices since I'm lacking the necessary development tools to build and test on iOS</b>
+
+### Features Overview
+
+1. Splash screen.
+2. Log in using your google account.
+3. Bybass login screen if already signed in.
+4. A couple of different chat rooms to choose between.
+5. Send and view messages and images within each chat room.
 
 ### Folder Structure
 
-Below is a general overview of how the project is structured. Any reuseable part, such as constants, hooks, components and so on are placed under the shared folder. The navigation folder contains the sole component that handles navigation. The Screens folder consists of sub folders that each contain everything related to one specific screen. The components within each of the screen sub folders are built using the reusable elements from the shared folder whenever possible.
+Below is a general overview of how the project is structured. Any reuseable part, such as constants, hooks, components, colors and so on are placed under the shared folder. The navigation folder contains the sole component that handles navigation. The Screens folder consists of sub folders that each contain everything related to one specific screen. The components within each of the screen sub folders are built using the reusable elements from the shared folder whenever possible.
 
 I have found that this way of structuring a project gives me the best overview while also clearly delineating what code belongs where.
 
@@ -93,10 +105,10 @@ I have found that this way of structuring a project gives me the best overview w
 
 Below I have listed the main libraries used for this project along with their purpose.
 
-* []() Redux Toolkit for cleaner state management.
+* []() Redux Toolkit for cleaner state management to avoid having to prop drill frequently used pieces of state.
 * []() Firebase for handling login and firestore for storing infomation about users, chatrooms and messages sent.
 * []() Styled Components for cleaner and more readable styling.
-
+* []() The React Error Boundary library for an added extra layer of protection against unexpected errors which might have otherwise caused a crash.
 
 
 <!-- GETTING STARTED -->
