@@ -134,11 +134,11 @@ To get a local copy up and running follow these steps.
    ```sh
    npm install
    ```
-3. Start Metro by running the command below inside your React Native project folder:
+3. Open a terminal and start Metro by running the command below inside your React Native project folder
    ```sh
    npx react-native start
    ```
-4. Start the application by opening a new terminal and running the command below inside your React Native project folder
+4. Start the application by opening a second terminal and running the command below inside your React Native project folder
    ```sh
    npx react-native run-android
    ```
