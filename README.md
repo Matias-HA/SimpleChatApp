@@ -109,6 +109,7 @@ Below I have listed the main libraries used for this project along with their pu
 * []() Firebase for handling login and firestore for storing infomation about users, chatrooms and messages sent.
 * []() Styled Components for cleaner and more readable styling.
 * []() The React Error Boundary library for an added extra layer of protection against unexpected errors which might have otherwise caused a crash.
+* []() The React-Native-Size-Matters library to scale the UI such that it is consistent across larger and smaller devices. 
 
 
 <!-- GETTING STARTED -->
