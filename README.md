@@ -134,6 +134,10 @@ To get a local copy up and running follow these steps.
    ```sh
    npm install
    ```
+3. Verify Device Connection
+   ```sh
+   Run the "adb devices" command in a terminal to make sure your device is connected
+   ```
 3. Open a terminal and start Metro by running the command below inside your React Native project folder
    ```sh
    npx react-native start
