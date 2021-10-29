@@ -63,7 +63,13 @@
 
 This is a simple chat app. The app consists of three screens. a login screen, where the user can sign in using their google account. The main screen gives an overview of each chatroom the user can enter. The Third screen is where the user can type to chat with other users.
 
-<img src="https://user-images.githubusercontent.com/84104310/136424526-5e815eef-cd8b-4a4f-8dca-a611b9a6bc82.jpg" width="30%"></img> <img src="https://user-images.githubusercontent.com/84104310/136424544-4e85b9b4-eeca-4d33-b435-b272055c700b.jpg" width="30%"></img> <img src="https://user-images.githubusercontent.com/84104310/136424573-a3f2d8b1-1142-44b3-964e-ec1662707f9a.jpg" width="30%"></img> 
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/84104310/139360161-a9f5bb80-35f1-4f6b-bde5-74c2650b10f7.jpg" width="18%"></img>
+  <img src="https://user-images.githubusercontent.com/84104310/139361866-577a3725-fd2f-450b-9ba5-e32a0b384d72.jpg" width="18%"></img>
+  <img src="https://user-images.githubusercontent.com/84104310/139362204-3bb1af84-eade-4858-9733-a8d4cc98df57.jpg" width="18%"></img>
+  <img src="https://user-images.githubusercontent.com/84104310/139362209-881a602e-defc-49b1-8b19-aaf881dc2a06.jpg" width="18%"></img>
+  <img src="https://user-images.githubusercontent.com/84104310/139361640-ac08160d-2e12-4981-a2cd-a123e14c30e4.jpg" width="18%"></img>
+</div>
 
 This app currently only works on android devices since I'm lacking the necessary development tools to build for iOS
 
