@@ -79,11 +79,11 @@ This is a simple chat app. The app consists of three screens. a login screen, wh
 
 ### Features Overview
 
-1. Splash screen.
-2. Log in using your google account.
-3. Bybass login screen if already signed in.
-4. A couple of different chat rooms to choose between.
-5. Send and view messages and images within each chat room.
+- Splash screen.
+- Log in using your google account.
+- Bybass login screen if already signed in.
+- A couple of different chat rooms to choose between.
+- Send and view messages and images within each chat room.
 
 ### Folder Structure
 
