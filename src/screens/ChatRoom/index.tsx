@@ -31,7 +31,6 @@ const ChatRoom = ({route}: StackScreenProps<StackParamList, 'ChatRoom'>) => {
   useEffect(() => {
     if (messages.length > 0) {
       setLoading(false);
-      throw new Error('Testing error boundary');
     }
   }, [messages]);
 

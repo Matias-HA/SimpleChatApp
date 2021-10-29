@@ -52,7 +52,7 @@ const Login = () => {
             size={scale(80)}
             color={Colors.secondary}
             top={10}
-            left={30}
+            left={50}
             mirror={false}
           />
           <Icon
@@ -60,7 +60,7 @@ const Login = () => {
             size={scale(37)}
             color={'white'}
             top={33}
-            left={-27}
+            left={-8}
             mirror={false}
           />
 
@@ -69,16 +69,16 @@ const Login = () => {
             name="comment"
             size={scale(80)}
             color={Colors.primary}
-            top={50}
-            left={10}
+            top={70}
+            left={-10}
             mirror={true}
           />
           <Icon
             name="align-left"
             size={scale(38)}
             color={'white'}
-            top={70}
-            left={-48}
+            top={92}
+            left={-66}
             mirror={false}
           />
         </IconContainer>
@@ -121,14 +121,14 @@ const Login = () => {
         height={500}
         color={Colors.secondary}
         elevation={14}
-        top={580}
+        top={610}
         right={-110}
       />
       <Circle
         height={400}
         color={Colors.primary}
         elevation={15}
-        top={600}
+        top={625}
         right={130}
       />
     </Container>

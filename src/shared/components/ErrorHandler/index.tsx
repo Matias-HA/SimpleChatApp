@@ -49,7 +49,7 @@ const myErrorHandler = (error: Error) => {
   // Do something with the error here. Like logging it to the backend for later review.
 };
 
-function ErrorFallback({resetErrorBoundary}) {
+function ErrorFallback({resetErrorBoundary}: any) {
   return (
     <Container>
       <ContentContainer>
@@ -60,8 +60,8 @@ function ErrorFallback({resetErrorBoundary}) {
           <Info fontSize={14}>
             The app ran into an issue and could not continue. We apologize for
             any inconvenience this may have caused! You can press the button
-            below to restart the app and return to what you were doing. Please
-            contact us if this issue persists.
+            below to return to what you were doing. Please contact us if this
+            issue persists.
           </Info>
           <ReturnBtn onPress={resetErrorBoundary}>
             <BtnText fontSize={16}>Back To The Main Screen</BtnText>

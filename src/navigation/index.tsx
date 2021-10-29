@@ -57,15 +57,18 @@ const Navigation = () => {
         // If the user doesn't exist in the firestore, they are added
         AddUserIfNotInFirestore(user);
 
-        let firestoreUserInfo: UserInfo | undefined =
-          await GetCurrentUserInfoFromFirestore();
-
-        if (firestoreUserInfo === undefined) {
-          throw new Error('Failed to retrieve user information');
+        if (user.displayName == undefined) {
+          throw new Error('No Display Name Associated With Account');
         }
 
+        let userInfo: UserInfo = {
+          userId: user.uid,
+          name: user.displayName,
+          avatar: user.photoURL || '',
+        };
+
         // User is saved to the redux store
-        dispatch(setUser(firestoreUserInfo));
+        dispatch(setUser(userInfo));
       }
 
       // Firebase connection has been established and initializing is now done
