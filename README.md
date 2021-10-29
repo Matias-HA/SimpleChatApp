@@ -130,7 +130,7 @@ To get a local copy up and running follow these steps.
    ```sh
    git clone https://github.com/Matias-HA/SimpleChatApp.git
    ```
-2. Install NPM packages
+2. Install NPM packages by running the command below at the root directory of the project folder
    ```sh
    npm install
    ```
@@ -138,11 +138,11 @@ To get a local copy up and running follow these steps.
    ```sh
    Run the "adb devices" command in a terminal to make sure your device is connected before running the following commands
    ```
-3. Open a terminal and start Metro by running the command below inside your React Native project folder
+3. Open a terminal and start Metro by running the command below at the root directory of the project folder
    ```sh
    npx react-native start
    ```
-4. Start the application by opening a second terminal and running the command below inside your React Native project folder
+4. Start the application by opening a second terminal and running the command below at the root directory of the project folder
    ```sh
    npx react-native run-android
    ```
