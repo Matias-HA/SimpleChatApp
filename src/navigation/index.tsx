@@ -1,21 +1,13 @@
 // Libraries
-import React, {useEffect, useState} from 'react';
-import {Alert} from 'react-native';
+import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 // Includes
 import Colors from '../shared/constants/colors';
-import Auth from '../shared/constants/auth';
 import {setUser} from '../shared/redux/auth/reducer';
 import {signout} from '../shared/redux/auth/actions';
-import {useReduxSelector, useReduxDispatch} from '../shared/redux/hooks';
-import {UserInfo, StackParamList} from '../shared/types';
-import {
-  AddUserIfNotInFirestore,
-  GetCurrentUserInfoFromFirestore,
-} from '../shared/firestore/queries';
+import {useReduxSelector} from '../shared/redux/hooks';
+import {StackParamList} from '../shared/types';
 import IconBtn from '../shared/components/IconBtn';
 import Login from '../screens/Login';
 import Main from '../screens/Main';
@@ -32,59 +24,7 @@ const Stack = createStackNavigator<StackParamList>();
  */
 
 const Navigation = () => {
-  const [initializing, setInitializing] = useState<boolean>(true); // Set an initializing state whilst Firebase connects
-  const dispatch = useReduxDispatch();
   const user = useReduxSelector(state => state.auth.user);
-
-  // Anything that should happen on initial on app startup should be added in this useEffect
-  useEffect(() => {
-    GoogleSignin.configure({
-      webClientId: Auth.webClientId,
-    });
-
-    const subscriber = auth().onAuthStateChanged(firebaseUser =>
-      handleAuthStateChanged(firebaseUser),
-    );
-    return subscriber; // unsubscribe on unmount
-  }, []);
-
-  // Handle user auth state changes
-  const handleAuthStateChanged = async (
-    user: FirebaseAuthTypes.User | null,
-  ) => {
-    try {
-      if (user) {
-        // If the user doesn't exist in the firestore, they are added
-        AddUserIfNotInFirestore(user);
-
-        if (user.displayName == undefined) {
-          throw new Error('No Display Name Associated With Account');
-        }
-
-        let userInfo: UserInfo = {
-          userId: user.uid,
-          name: user.displayName,
-          avatar: user.photoURL || '',
-        };
-
-        // User is saved to the redux store
-        dispatch(setUser(userInfo));
-      }
-
-      // Firebase connection has been established and initializing is now done
-      if (initializing) setInitializing(false);
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        Alert.alert(error.message);
-      }
-    }
-  };
-
-  /* the onAuthStateChanged listener is asynchronous and will trigger an initial state once a connection
-   with Firebase has been established. Therefore it is important to setup an "initializing" state which blocks 
-   render of the main application whilst the connection is being established
-   */
-  if (initializing) return null;
 
   return (
     <NavContainer>

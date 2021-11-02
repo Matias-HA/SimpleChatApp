@@ -111,6 +111,7 @@ export const SendMessage = async (
     if (user === null) {
       throw new Error('Unexpected error: user is null');
     }
+
     firestore()
       .collection('ChatRooms')
       .doc(chatroomId)
