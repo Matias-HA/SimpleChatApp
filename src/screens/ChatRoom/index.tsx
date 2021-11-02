@@ -1,6 +1,6 @@
 // Libraries
-import React, {useEffect, useState} from 'react';
-import {FlatList, ActivityIndicator} from 'react-native';
+import React, {ReactElement, useEffect, useState} from 'react';
+import {FlatList, ActivityIndicator, Alert} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 
 // Includes
@@ -11,11 +11,12 @@ import {ChatRoomMessage, StackParamList} from '../../shared/types';
 import useChatroomMessages from '../../shared/hooks/useChatroomMessages';
 import {
   GetChatroomMessages,
-  GetChatroomMessagesFromLastVisible,
+  GetMoreChatroomMessages,
 } from '../../shared/firestore/queries';
 
 // Styles
 import {Container, SpinnerContainer} from './styles';
+import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
 
 /**
  * @description
@@ -25,7 +26,14 @@ import {Container, SpinnerContainer} from './styles';
 const ChatRoom = ({route}: StackScreenProps<StackParamList, 'ChatRoom'>) => {
   const {chatroomId} = route.params;
   const [loading, setLoading] = useState<boolean>(true);
-  const [messages, setMessages] = useChatroomMessages(chatroomId);
+  const [postsPerLoad] = useState<number>(50);
+  const [startAfter, setStartAfter] = useState<Object>(Object);
+  const [lastPost, setLastPost] = useState<boolean>(false);
+  const [messages, setMessages] = useChatroomMessages(
+    chatroomId,
+    postsPerLoad,
+    setStartAfter,
+  );
 
   // Stop loading once messages have been set
   useEffect(() => {
@@ -35,31 +43,20 @@ const ChatRoom = ({route}: StackScreenProps<StackParamList, 'ChatRoom'>) => {
   }, [messages]);
 
   // Load more messages once the user reaches the end
-  const loadMoreMessages = async () => {
-    // Get the last visible document from the current page
-    const lastVisible = await GetChatroomMessages(chatroomId)
-      .get()
-      .then(documentSnapshots => {
-        return documentSnapshots.docs[documentSnapshots.docs.length - 1];
-      });
+  const getMoreMessages = async () => {
+    if (lastPost) return;
 
-    // get the next 50 messages starting from the last visible document
-    var nextMessagesQuery = await GetChatroomMessagesFromLastVisible(
+    const chatroomMessagesData = await GetMoreChatroomMessages(
       chatroomId,
-      lastVisible,
+      postsPerLoad,
+      startAfter,
     );
+    setMessages([...messages, ...chatroomMessagesData.messages]);
+    setStartAfter(chatroomMessagesData.lastVisible);
 
-    // Add the new messages to our current messages
-    nextMessagesQuery.get().then(QuerySnapshot => {
-      let newMessages: ChatRoomMessage[] = [];
-      QuerySnapshot.forEach(doc => {
-        newMessages.push(doc.data() as ChatRoomMessage);
-      });
-      setMessages((currentMessages: ChatRoomMessage[]) => [
-        ...currentMessages,
-        ...newMessages,
-      ]);
-    });
+    chatroomMessagesData.messages.length == 0
+      ? setLastPost(true)
+      : setLastPost(false);
   };
 
   // Each list item represents a message within the chatroom
@@ -79,13 +76,18 @@ const ChatRoom = ({route}: StackScreenProps<StackParamList, 'ChatRoom'>) => {
     <Container>
       <FlatList
         data={messages}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => index.toString()}
         inverted
         progressViewOffset={20}
         onEndReached={() => {
-          loadMoreMessages();
+          getMoreMessages();
         }}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={renderItem}
+        onEndReachedThreshold={0.01}
+        scrollEventThrottle={150}
+        ListFooterComponent={(): any =>
+          !lastPost && <ActivityIndicator size="large" color={Colors.primary} />
+        }
       />
 
       <InputBox chatroomId={chatroomId} />

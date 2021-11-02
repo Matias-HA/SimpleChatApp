@@ -9,6 +9,7 @@ import moment from 'moment';
 // Includes
 import {store} from '../../redux/store';
 import {UserInfo} from '../../types';
+import {ChatroomMessagesCollection} from '../utils';
 
 /* *********************** USER RELATED ******************************* */
 
@@ -76,27 +77,51 @@ export const GetCurrentUserInfoFromFirestore = async (): Promise<
 // Get all chatrooms
 export const GetAllChatrooms = () => firestore().collection('ChatRooms').get();
 
-// Returns the 50 newest messages from the specified chatroom
-export const GetChatroomMessages = (chatroomId: string) =>
-  firestore()
-    .collection('ChatRooms')
-    .doc(chatroomId)
-    .collection('Messages')
-    .orderBy('createdAt', 'desc')
-    .limit(50);
-
-// Returns the next 50 messages starting from last visible message
-export const GetChatroomMessagesFromLastVisible = (
+// Returns n number of messages from specified chatroom sorted by most recent
+export const GetChatroomMessages = async (
   chatroomId: string,
-  lastVisible: FirebaseFirestoreTypes.DocumentData,
-) =>
-  firestore()
-    .collection('ChatRooms')
-    .doc(chatroomId)
-    .collection('Messages')
+  postsPerLoad: number,
+) => {
+  const messages = new Array();
+  const querySnapshot = await ChatroomMessagesCollection(chatroomId)
     .orderBy('createdAt', 'desc')
-    .startAfter(lastVisible)
-    .limit(50);
+    .limit(postsPerLoad)
+    .get();
+
+  const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+
+  querySnapshot.forEach(doc => {
+    let messageData = doc.data();
+    messageData.messageId = doc.id;
+    messages.push(messageData);
+  });
+
+  return {messages, lastVisible};
+};
+
+// Returns the next n number of messages starting from last visible message sorted by most recent
+export const GetMoreChatroomMessages = async (
+  chatroomId: string,
+  postsPerLoad: number,
+  startAfter: Object,
+) => {
+  const messages = new Array();
+  const querySnapshot = await ChatroomMessagesCollection(chatroomId)
+    .orderBy('createdAt', 'desc')
+    .startAfter(startAfter)
+    .limit(postsPerLoad)
+    .get();
+
+  const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+
+  querySnapshot.forEach(doc => {
+    let messageData = doc.data();
+    messageData.messageId = doc.id;
+    messages.push(messageData);
+  });
+
+  return {messages, lastVisible};
+};
 
 // Send message to the firestore containing either just text or text + an image
 export const SendMessage = async (
@@ -112,10 +137,7 @@ export const SendMessage = async (
       throw new Error('Unexpected error: user is null');
     }
 
-    firestore()
-      .collection('ChatRooms')
-      .doc(chatroomId)
-      .collection('Messages')
+    ChatroomMessagesCollection(chatroomId)
       .add({
         name: user.name,
         content: messageContent,
@@ -130,7 +152,11 @@ export const SendMessage = async (
           .doc(chatroomId)
           .update({lastMessageCreatedAt: moment.now()});
       });
-  } catch (error) {
-    Alert.alert('Error occured while attempting to send message');
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      Alert.alert(
+        'Error occured while attempting to send message: ' + error.message,
+      );
+    }
   }
 };

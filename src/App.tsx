@@ -15,6 +15,7 @@ import {authSlice} from './shared/redux/auth/reducer';
 import ErrorHandler from './shared/components/ErrorHandler';
 
 import {AddUserIfNotInFirestore} from './shared/firestore/queries';
+import {UserInfo} from './shared/types';
 
 /**
  * @Description This is the top level component of the app
@@ -50,14 +51,14 @@ const App = () => {
           throw new Error('No Display Name Associated With Account');
         }
 
-        let userInfo: UserInfo = {
+        let userInfo = {
           userId: user.uid,
           name: user.displayName,
           avatar: user.photoURL || '',
-        };
+        } as UserInfo;
 
         // User is saved to the redux store
-        store.dispatch(authSlice.actions.setUser(user));
+        store.dispatch(authSlice.actions.setUser(userInfo));
       }
 
       // Firebase connection has been established and initializing is now done

@@ -18,7 +18,7 @@ export const Container = styled.View`
   width: 100%;
   flex-direction: row;
   justify-content: space-evenly;
-  margin-bottom: ${verticalScale(15)}px;
+  margin-vertical: ${verticalScale(7.5)}px;
 `;
 
 export const InputAreaContainer = styled.View`
