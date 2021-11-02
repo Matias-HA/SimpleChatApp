@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@screens/*": ["screens/*"],
+      "@shared/*": ["shared/*"]
+    }
+  }
+}

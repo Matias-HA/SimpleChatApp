@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 
 // Includes
-import Screen from '../../constants/screen';
+import Screen from '@shared/constants/screen';
 
 interface Props {
   height: number;

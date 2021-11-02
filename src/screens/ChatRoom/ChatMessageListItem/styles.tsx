@@ -3,9 +3,9 @@ import React from 'react';
 import styled from 'styled-components/native';
 
 // Includes
-import Screen from '../../../shared/constants/screen';
-import Colors from '../../../shared/constants/colors';
-import BasicText from '../../../shared/components/BasicText';
+import Screen from '@shared/constants/screen';
+import Colors from '@shared/constants/colors';
+import BasicText from '@shared/components/BasicText';
 
 interface Props {
   isMyMessage: boolean;

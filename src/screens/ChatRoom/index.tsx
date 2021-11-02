@@ -4,15 +4,15 @@ import {FlatList, ActivityIndicator, Alert} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 
 // Includes
-import ChatMessageListItem from './ChatMessageListItem';
-import Colors from '../../shared/constants/colors';
-import InputBox from './InputBox';
-import {ChatRoomMessage, StackParamList} from '../../shared/types';
-import useChatroomMessages from '../../shared/hooks/useChatroomMessages';
+import Colors from '@shared/constants/colors';
+import {ChatRoomMessage, StackParamList} from '@shared/types';
+import useChatroomMessages from '@shared/hooks/useChatroomMessages';
 import {
   GetChatroomMessages,
   GetMoreChatroomMessages,
-} from '../../shared/firestore/queries';
+} from '@shared/firestore/queries';
+import ChatMessageListItem from './ChatMessageListItem';
+import InputBox from './InputBox';
 
 // Styles
 import {Container, SpinnerContainer} from './styles';

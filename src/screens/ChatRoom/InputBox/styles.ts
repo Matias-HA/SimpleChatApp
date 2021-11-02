@@ -5,9 +5,9 @@ import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import {ImagePickerResponse} from 'react-native-image-picker';
 
 // Includes
-import Colors from '../../../shared/constants/colors';
-import Screen from '../../../shared/constants/screen';
-import IconBtn from '../../../shared/components/IconBtn';
+import Colors from '@shared/constants/colors';
+import Screen from '@shared/constants/screen';
+import IconBtn from '@shared/components/IconBtn';
 
 interface Props {
   message: string;

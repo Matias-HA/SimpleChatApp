@@ -4,11 +4,11 @@ import {GoogleSigninButton} from '@react-native-google-signin/google-signin';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 
 // Includes
-import {signInGoogle} from '../../shared/redux/auth/actions';
-import {clearErrorMessage} from '../../shared/redux/auth/reducer';
-import {useReduxSelector, useReduxDispatch} from '../../shared/redux/hooks';
-import Colors from '../../shared/constants/colors';
-import Circle from '../../shared/components/Circle';
+import {signInGoogle} from '@shared/redux/auth/actions';
+import {clearErrorMessage} from '@shared/redux/auth/reducer';
+import {useReduxSelector, useReduxDispatch} from '@shared/redux/hooks';
+import Colors from '@shared/constants/colors';
+import Circle from '@shared/components/Circle';
 
 // Styles
 import {

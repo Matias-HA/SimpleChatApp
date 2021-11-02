@@ -12,9 +12,9 @@ import 'react-native-get-random-values';
 import {v4 as uuidv4} from 'uuid';
 
 // Includes
-import {useReduxSelector} from '../../../shared/redux/hooks';
-import Colors from '../../../shared/constants/colors';
-import {SendMessage} from '../../../shared/firestore/queries';
+import {useReduxSelector} from '@shared/redux/hooks';
+import Colors from '@shared/constants/colors';
+import {SendMessage} from '@shared/firestore/queries';
 
 // Styles
 import {

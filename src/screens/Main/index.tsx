@@ -3,11 +3,11 @@ import React, {useEffect, useState, useCallback} from 'react';
 import {FlatList, ActivityIndicator, RefreshControl} from 'react-native';
 
 // Includes
-import Colors from '../../shared/constants/colors';
+import Colors from '@shared/constants/colors';
+import Circle from '@shared/components/Circle';
+import useChatrooms from '@shared/hooks/useChatrooms';
+import {ChatRoomData} from '@shared/types';
 import ListItem from './ListItem';
-import Circle from '../../shared/components/Circle';
-import useChatrooms from '../../shared/hooks/useChatrooms';
-import {ChatRoomData} from '../../shared/types';
 
 // Styles
 import {Container, ListContainer} from './styles';

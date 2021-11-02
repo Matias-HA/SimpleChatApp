@@ -4,9 +4,9 @@ import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 // Includes
-import Screen from '../../../shared/constants/screen';
-import Colors from '../../../shared/constants/colors';
-import BasicText from '../../../shared/components/BasicText';
+import Screen from '@shared/constants/screen';
+import Colors from '@shared/constants/colors';
+import BasicText from '@shared/components/BasicText';
 
 export const ClickableContainer = styled.TouchableOpacity`
   flex: 1;

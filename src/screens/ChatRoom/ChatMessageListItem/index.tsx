@@ -4,7 +4,7 @@ import moment from 'moment';
 import auth from '@react-native-firebase/auth';
 
 // Includes
-import {ChatRoomMessage} from '../../../shared/types';
+import {ChatRoomMessage} from '@shared/types';
 
 // Styles
 import {

@@ -7,15 +7,14 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
 // Includes
+import Colors from '@shared/constants/colors';
+import Auth from '@shared/constants/auth';
+import {store} from '@shared/redux/store';
+import {authSlice} from '@shared/redux/auth/reducer';
+import ErrorHandler from '@shared/components/ErrorHandler';
+import {AddUserIfNotInFirestore} from '@shared/firestore/queries';
+import {UserInfo} from '@shared/types';
 import Navigation from './navigation';
-import Colors from './shared/constants/colors';
-import Auth from './shared/constants/auth';
-import {store} from './shared/redux/store';
-import {authSlice} from './shared/redux/auth/reducer';
-import ErrorHandler from './shared/components/ErrorHandler';
-
-import {AddUserIfNotInFirestore} from './shared/firestore/queries';
-import {UserInfo} from './shared/types';
 
 /**
  * @Description This is the top level component of the app

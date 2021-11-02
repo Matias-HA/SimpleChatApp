@@ -5,9 +5,9 @@ import {scale} from 'react-native-size-matters';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 // Includes
-import Colors from '../../shared/constants/colors';
-import Screen from '../../shared/constants/screen';
-import BasicText from '../../shared/components/BasicText';
+import Colors from '@shared/constants/colors';
+import Screen from '@shared/constants/screen';
+import BasicText from '@shared/components/BasicText';
 
 interface Props {
   top: number;

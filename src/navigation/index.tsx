@@ -3,15 +3,15 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
 // Includes
-import Colors from '../shared/constants/colors';
-import {setUser} from '../shared/redux/auth/reducer';
-import {signout} from '../shared/redux/auth/actions';
-import {useReduxSelector} from '../shared/redux/hooks';
-import {StackParamList} from '../shared/types';
-import IconBtn from '../shared/components/IconBtn';
-import Login from '../screens/Login';
-import Main from '../screens/Main';
-import ChatRoom from '../screens/ChatRoom';
+import Colors from '@shared/constants/colors';
+import {setUser} from '@shared/redux/auth/reducer';
+import {signout} from '@shared/redux/auth/actions';
+import {useReduxSelector} from '@shared/redux/hooks';
+import {StackParamList} from '@shared/types';
+import IconBtn from '@shared/components/IconBtn';
+import Login from '@screens/Login';
+import Main from '@screens/Main';
+import ChatRoom from '@screens/ChatRoom';
 
 // Styles
 import {NavContainer, LogoutBtnContainer} from './styles';
