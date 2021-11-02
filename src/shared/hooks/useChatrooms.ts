@@ -8,27 +8,15 @@ import {ChatRoomData} from '../types';
 
 /**
  * @description
- * This hook allows you to receive all chatrooms present in the firestore sorted by which chatroom has the newest message
+ * This hook allows you to receive all chatrooms present in the firestore sorted by the most recent message
  */
 
-const useSortedChatrooms = () => {
+const useChatrooms = () => {
   const [chatrooms, setChatrooms] = useState<ChatRoomData[]>([]);
 
   useEffect(() => {
     getChatrooms();
   }, []);
-
-  // Chatrooms are sorted by which has the most recent message.
-  // Sorted: Newest -> Oldest
-  const SortChatroomsByNewestMessage = (chatrooms: ChatRoomData[]) => {
-    const sortedChatrooms = chatrooms?.sort((chatroomA, chatroomB) =>
-      chatroomA.data.lastMessageCreatedAt < chatroomB.data.lastMessageCreatedAt
-        ? 1
-        : -1,
-    );
-
-    return sortedChatrooms;
-  };
 
   // Get chatrooms from the firestore
   const getChatrooms = async () => {
@@ -43,11 +31,11 @@ const useSortedChatrooms = () => {
       });
     });
 
-    // sort the chatrooms by newest message and set the state
-    setChatrooms(SortChatroomsByNewestMessage(rooms));
+    // save rooms to state
+    setChatrooms(rooms);
   };
 
   return [chatrooms, getChatrooms] as const;
 };
 
-export default useSortedChatrooms;
+export default useChatrooms;

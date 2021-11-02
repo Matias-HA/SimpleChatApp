@@ -64,32 +64,31 @@ const ChatRoom = ({route}: StackScreenProps<StackParamList, 'ChatRoom'>) => {
     <ChatMessageListItem message={item} />
   );
 
-  if (loading) {
-    return (
-      <SpinnerContainer>
-        <ActivityIndicator size="large" color={Colors.primary} />
-      </SpinnerContainer>
-    );
-  }
-
   return (
     <Container>
-      <FlatList
-        data={messages}
-        renderItem={renderItem}
-        keyExtractor={(item, index) => index.toString()}
-        inverted
-        progressViewOffset={20}
-        onEndReached={() => {
-          getMoreMessages();
-        }}
-        onEndReachedThreshold={0.01}
-        scrollEventThrottle={150}
-        ListFooterComponent={(): any =>
-          !lastPost && <ActivityIndicator size="large" color={Colors.primary} />
-        }
-      />
-
+      {loading ? (
+        <SpinnerContainer>
+          <ActivityIndicator size="large" color={Colors.primary} />
+        </SpinnerContainer>
+      ) : (
+        <FlatList
+          data={messages}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index.toString()}
+          inverted
+          progressViewOffset={20}
+          onEndReached={() => {
+            getMoreMessages();
+          }}
+          onEndReachedThreshold={0.01}
+          scrollEventThrottle={150}
+          ListFooterComponent={(): any =>
+            !lastPost && (
+              <ActivityIndicator size="large" color={Colors.primary} />
+            )
+          }
+        />
+      )}
       <InputBox chatroomId={chatroomId} />
     </Container>
   );

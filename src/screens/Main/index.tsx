@@ -6,7 +6,7 @@ import {FlatList, ActivityIndicator, RefreshControl} from 'react-native';
 import Colors from '../../shared/constants/colors';
 import ListItem from './ListItem';
 import Circle from '../../shared/components/Circle';
-import useSortedChatrooms from '../../shared/hooks/useSortedChatrooms';
+import useChatrooms from '../../shared/hooks/useChatrooms';
 import {ChatRoomData} from '../../shared/types';
 
 // Styles
@@ -20,7 +20,7 @@ import {Container, ListContainer} from './styles';
 const Main = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [refreshing, setRefreshing] = useState<boolean>(false);
-  const [chatrooms, setChatrooms] = useSortedChatrooms();
+  const [chatrooms, setChatrooms] = useChatrooms();
 
   // Once chatrooms have been set it will stop loading
   useEffect(() => {
@@ -49,22 +49,21 @@ const Main = () => {
     <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
   );
 
-  // Show spinner while waiting for the page to load or refreshing current chatrooms
-  if (loading || refreshing)
-    return (
-      <Container>
-        <ActivityIndicator size="large" color={Colors.primary} />
-      </Container>
-    );
-
   return (
     <ListContainer>
-      <FlatList
-        data={chatrooms}
-        keyExtractor={keyExtractor}
-        renderItem={renderItem}
-        refreshControl={refreshControl()}
-      />
+      {loading || refreshing ? (
+        <Container>
+          <ActivityIndicator size="large" color={Colors.primary} />
+        </Container>
+      ) : (
+        <FlatList
+          data={chatrooms}
+          keyExtractor={keyExtractor}
+          renderItem={renderItem}
+          refreshControl={refreshControl()}
+        />
+      )}
+
       <Circle
         height={400}
         color={Colors.primary}

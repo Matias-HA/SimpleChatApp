@@ -75,7 +75,11 @@ export const GetCurrentUserInfoFromFirestore = async (): Promise<
 /* *********************** CHATROOM RELATED ******************************* */
 
 // Get all chatrooms
-export const GetAllChatrooms = () => firestore().collection('ChatRooms').get();
+export const GetAllChatrooms = () =>
+  firestore()
+    .collection('ChatRooms')
+    .orderBy('lastMessageCreatedAt', 'desc')
+    .get();
 
 // Returns n number of messages from specified chatroom sorted by most recent
 export const GetChatroomMessages = async (
