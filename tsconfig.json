@@ -1,5 +1,4 @@
 {
-  "extends": "./tsconfig.paths.json",
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
@@ -11,9 +10,14 @@
     "noEmit": true,
     "strict": true,
     "target": "esnext",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "*": ["./src/*"],
+      "@screens/*": ["src/screens/*"],
+      "@shared/*": ["src/shared/*"]
+    }
   },
-  "include": ["src"],
   "exclude": [
     "node_modules",
     "babel.config.js",
